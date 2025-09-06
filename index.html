@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Creative Portfolio — Layout & Interactions</title>
+  <meta name="description" content="A clean, responsive portfolio layout with sections for About, Experience, Projects, Marketing, Photography, and Contact." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css" />
+  <script defer src="./scripts.js"></script>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+</head>
+<!-- Preloader -->
+<div id="preloader">
+  <div class="spinner"></div>
+</div>
+
+<body>
+  <!-- Header / Navbar -->
+  <header class="site-header" id="top">
+    <div class="container nav-wrap">
+      <a href="#top" class="brand" aria-label="Homepage">Cedinc<span class="accent">.</span></a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#experience" class="nav-link">Work</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#marketing" class="nav-link">Marketing</a>
+        <a href="#photography" class="nav-link">Photography</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn btn-outline small" href="#contact">Get in Touch</a>
+        <a class="btn small" href="#" id="book-call">Book a Call</a>
+      </div>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+         <section class="hero">
+  <div class="hero-img">
+    <img src="./assets/img/hero 3-01.svg" alt="Cedric Profile">
+  </div>
+  <h2>Hi, I'm Ced 👋</h2>
+  <h1><span>Pioneer</span> & <span>Crafter </span></h1>
+  <p>
+    I'm a <strong>24-year-old creative professional</strong> who brings innovative ideas 
+    to life through thoughtful design and cutting-edge technology. 
+    I specialize in <strong>UI/UX Design</strong>, <strong>Digital Marketing</strong>, 
+    and <strong>AI Solutions</strong>.
+  </p>
+  <div class="hero-buttons">
+    <a href="#contact" class="btn primary">Get in Touch</a>
+    <a href="#projects" class="btn secondary">Available for new projects</a>
+  </div>
+</section>
+
+  <!-- About -->
+  <section class="section about" id="about" aria-labelledby="about-title">
+  <div class="container">
+    <div class="reveal">
+      <h2 id="about-title">About</h2>
+      <p>I'm a multidisciplinary creative specializing in interfaces that convert and campaigns that resonate. My approach blends research, rapid prototyping, data-driven iteration, and a sophisticated dash of taste.</p>
+      <p>Off the clock, you'll find me behind a camera. Photography keeps my eye sharp for composition, rhythm, and light—skills that translate directly into product design.</p>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Experience -->
+  <section class="section" id="experience" aria-labelledby="experience-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="experience-title">Work Experience</h2>
+        <p class="muted">A quick timeline of roles across design, technology, and growth.</p>
+      </div>
+
+      <ol class="timeline">
+        <li class="timeline-item reveal">
+          <div class="ti-head">
+            <h3 class="ti-role">Lead Designer/Marketing Manager</h3>
+            <span class="ti-org">Next Level Mavericks Group · HYBRID</span>
+            <span class="ti-date">2023 — Present</span>
+          </div>
+          <p> I led the creation of impactful marketing campaigns, blending creative design with strategic vision. I managed teams, aligned visuals with brand goals, and used market insights to craft compelling narratives. My expertise in design tools and marketing trends drove innovative solutions, enhancing brand presence and delivering measurable results.
+
+          </p>
+        </li>
+
+        <li class="timeline-item reveal">
+          <div class="ti-head">
+            <h3 class="ti-role">Senior UI/UX Designer</h3>
+            <span class="ti-org">Easy Bake </span>
+            <span class="ti-date">2022 — 2023</span>
+          </div>
+          <p>I led the design of intuitive, user-centered interfaces, streamlining client workflows and enhancing user experiences. I collaborated with cross-functional teams to translate client needs into visually appealing and functional designs, prioritizing usability and accessibility. By leveraging user research and iterative design processes, I delivered tailored solutions that optimized client satisfaction and drove engagement.
+          </p>
+        </li>
+
+        <li class="timeline-item reveal">
+          <div class="ti-head">
+            <h3 class="ti-role">Product Designer</h3>
+            <span class="ti-org">E‑commerce Platform · Toronto Client</span>
+            <span class="ti-date">2022</span>
+          </div>
+          <p>As a Product Designer for a Toronto-based group project, I collaborated with colleagues to design a user-centric e-commerce platform. I contributed to creating intuitive interfaces, wireframes, and prototypes, ensuring a seamless user experience tailored to customer needs. By integrating user feedback and market trends, our team delivered a visually appealing and functional platform that enhanced usability and drove engagement.
+        </p>
+        </li>
+
+        <li class="timeline-item reveal">
+          <div class="ti-head">
+            <h3 class="ti-role">Digital Marketer</h3>
+            <span class="ti-org">Antique Vault KE</span>
+            <span class="ti-date">2022 — 2022</span>
+          </div>
+          <p>As a Digital Marketer, I crafted and executed data-driven campaigns to boost brand visibility and engagement across digital channels. I leveraged analytics, SEO, and social media strategies to target audiences effectively, optimizing content for maximum impact. Collaborating with cross-functional teams, I developed compelling marketing assets and monitored performance metrics to refine strategies, driving measurable growth in user acquisition and conversions.
+        </p>
+        </li>
+
+        <li class="timeline-item reveal">
+          <div class="ti-head">
+            <h3 class="ti-role">Photographer & Marketing Manager</h3>
+            <span class="ti-org">Freelance</span>
+            <span class="ti-date">2019 — 2020</span>
+          </div>
+          <p>As a Photographer and Marketing Manager, I combined creative visual storytelling with strategic marketing expertise to elevate brand presence. I captured high-quality, brand-aligned imagery and leveraged it across digital and print campaigns to engage target audiences. By integrating market insights and managing cross-channel strategies, I drove impactful campaigns that enhanced brand identity and boosted engagement, delivering measurable results.
+          </p>
+        </li>
+
+        <li class="timeline-item reveal">
+          <div class="ti-head">
+            <h3 class="ti-role">Social Media Specialist</h3>
+            <span class="ti-org">Quantum Solutions</span>
+            <span class="ti-date">2025 — 2025</span>
+          </div>
+          <p>As a Social Media Specialist, I developed and implemented social media strategies to enhance brand awareness and engagement. I created compelling content tailored to each platform, leveraging analytics to optimize performance. By fostering community interaction and monitoring trends, I successfully increased followers and drove traffic to the website.
+          </p>
+        </li>
+      </ol>
+
+      <div class="cta-banner reveal">
+        <div class="cta-copy">
+          <h3>Ready to collaborate?</h3>
+          <p>Let's build something delightful—and effective.</p>
+        </div>
+        <a class="btn" href="#contact">Discuss your project</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section class="section" id="projects" aria-labelledby="projects-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="projects-title">Featured Projects</h2>
+      <p class="muted">Real-world projects I’ve built — from fitness to rentals, property, and digital solutions.</p>
+    </div>
+
+    <div class="card-grid">
+
+      <!-- Otoo Car Rentals -->
+      <a href="https://ceeddy.github.io/OtooCar-rentals.com/index.html" target="_blank" rel="noopener noreferrer" class="card reveal">
+        <img src="./assets/img/Otoo.png" alt="Otoo Car Rentals Hero Page" />
+        <div class="card-body">
+          <span class="tag">Web</span>
+          <h3>Otoo Car Rentals</h3>
+          <p>Hero landing page for a modern car rental platform with sleek UI.</p>
+          <ul class="tech"><li>HTML</li><li>CSS</li><li>JS</li><li>Figma</li><li>Git</li></ul>
+        </div>
+      </a>
+
+      <!-- Fitness Gym -->
+      <a href="https://ceeddy.github.io/Gym-website-/#top" target="_blank" rel="noopener" class="card reveal">
+        <img src="./assets/img/Fitness.png" alt="Fitness Gym Website" />
+        <div class="card-body">
+          <span class="tag">Fitness</span>
+          <h3>Fitness Gym</h3>
+          <p>Modern fitness website with responsive design and interactive features.</p>
+          <ul class="tech"><li>HTML</li><li>CSS</li><li>JS</li><li>Git</li><li>GSAP</li></ul>
+        </div>
+      </a>
+
+      <!-- Antique Vault KE -->
+      <a href="https://ceeddy.github.io/AntiqueVaultweb/Home.html#" target="_blank" rel="noopener" class="card reveal">
+        <img src="./assets/img/AV.png" alt="AntiqueVaultKE Website" />
+        <div class="card-body">
+          <span class="tag">Business</span>
+          <h3>AntiqueVaultKE</h3>
+          <p>Clean, professional company site showcasing services & products.</p>
+          <ul class="tech"><li>HTML</li><li>CSS</li><li>JS</li><li>Git</li><li>Bootstrap</li></ul>
+        </div>
+      </a>
+
+      <!-- Digital Empire -->
+      <a href="https://ceeddy.github.io/websitesdevced/#" target="_blank" rel="noopener" class="card reveal">
+        <img src="./assets/img/My solutions.png" alt="Digital Empire Website" />
+        <div class="card-body">
+          <span class="tag">Agency</span>
+          <h3>Digital Empire</h3>
+          <p>Website solutions agency site with modern animations & layout.</p>
+          <ul class="tech"><li>HTML</li><li>CSS</li><li>JS</li><li>Figma</li><li>GSAP</li></ul>
+        </div>
+      </a>
+
+      <!-- Nextlevel Properties -->
+      <a href="https://www.nextlevelproperties.co.ke/" target="_blank" rel="noopener" class="card reveal">
+        <img src="./assets/img/NLP.png" alt="Nextlevel Properties Website" />
+        <div class="card-body">
+          <span class="tag">Real Estate</span>
+          <h3>Nextlevel Properties</h3>
+          <p>Corporate real estate website with property listings and elegant UI.</p>
+          <ul class="tech"><li>HTML</li><li>CSS</li><li>JS</li><li>Git</li><li>Node.js</li></ul>
+        </div>
+      </a>
+
+      <!-- Nextlevel Fitness -->
+      <a href="https://www.nextlevelfitness.co.ke/" target="_blank" rel="noopener" class="card reveal">
+        <img src="./assets/img/NLF.png" alt="Nextlevel Fitness Website" />
+        <div class="card-body">
+          <span class="tag">Fitness</span>
+          <h3>Nextlevel Fitness</h3>
+          <p>High-end gym website with premium branding and user-friendly design.</p>
+          <ul class="tech"><li>HTML</li><li>CSS</li><li>JS</li><li>Figma</li><li>GSAP</li></ul>
+        </div>
+      </a>
+      <!-- Riara School -->
+      <a href="https://ceeddy.github.io/Riara-school-website/Home.html" target="_blank" rel="noopener" class="card reveal">
+        <img src="./assets/img/Riara.png" alt="Riara School Website" />
+        <div class="card-body">
+          <span class="tag">Education</span>
+          <h3>Riara School</h3>
+          <p>Modern school website with a focus on student engagement and resources.</p>
+          <ul class="tech"><li>HTML</li><li>CSS</li></ul>
+        </div>
+      </a>
+                  <!-- Antique Vault WiFi Redirect -->
+          <a href="https://ceeddy.github.io/html-wifi-web-page/" target="_blank" rel="noopener" class="card reveal">
+            <img src="./assets/img/AV2.png" alt="Antique Vault WiFi Redirect Page" />
+            <div class="card-body">
+              <span class="tag">Print & Design</span>
+              <h3>Antique Vault WiFi Access</h3>
+              <p>Pre-WiFi landing page with email capture and terms checkbox.</p>
+              <ul class="tech"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
+            </div>
+          </a>
+
+
+    </div>
+
+    <div class="more-work reveal">
+      <p class="muted">Want to see more?</p>
+      <div class="chip-row">
+        <a class="chip" href="#marketing">View Marketing Work</a>
+        <a class="chip" href="#photography">See Photography</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Marketing -->
+  <section class="section" id="marketing" aria-labelledby="marketing-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="marketing-title">Marketing Campaigns & Posters</h2>
+        <p class="muted">Strategic creative that moves the needle.</p>
+      </div>
+
+      <div class="kpi-grid reveal">
+        <div class="kpi"><div class="kpi-num">500%</div><div class="kpi-label">Avg ROI uplift</div></div>
+        <div class="kpi"><div class="kpi-num">2M+</div><div class="kpi-label">People reached</div></div>
+        <div class="kpi"><div class="kpi-num">35%</div><div class="kpi-label">Conversion lift</div></div>
+        <div class="kpi"><div class="kpi-num">50+</div><div class="kpi-label">Campaigns shipped</div></div>
+      </div>
+
+      <div class="case-grid">
+        <article class="case reveal">
+          <img src="./assets/img/campaign-1.jpg" alt="Campaign case 1" />
+          <div class="case-body">
+            <h3>AntiqueVault Awareness Push</h3>
+            <p>Scaled awareness 3× via paid + organic with a systemized creative kit.</p>
+            <ul class="bullets"><li>300% brand awareness</li><li>50K+ engagements</li><li>25% CVR</li></ul>
+          </div>
+        </article>
+        <article class="case reveal">
+          <img src="./assets/img/campaign-2.svg.png" alt="Campaign case 2" />
+          <div class="case-body">
+            <h3>Fintech Product Launch</h3>
+            <p>Orchestrated multi‑channel launch to 10K downloads in week one.</p>
+            <ul class="bullets"><li>10K downloads</li><li>40% week‑9 retention</li><li>4.8★ rating</li></ul>
+          </div>
+        </article>
+        <article class="case reveal">
+          <img src="./assets/img/campaign-3.png" alt="Campaign case 3" />
+          <div class="case-body">
+            <h3>MAA Fashion Identity</h3>
+            <p>Defined brand system, voice, and visuals for a mission‑driven startup.</p>
+            <ul class="bullets"><li>200% sales growth</li><li>+15K followers</li><li>85% recognition</li></ul>
+          </div>
+        </article>
+      </div>
+      <div class="case-grid">
+        <article class="case reveal">
+            <img src="./assets/img/campaign 5.jpg" alt="NextLevel Properties case" />
+            <div class="case-body">
+              <h3>NextLevel Properties Rebrand</h3>
+              <p>Revamped identity and digital funnel to attract high-value buyers and renters.</p>
+              <ul class="bullets">
+                <li>4× lead conversion rate</li>
+                <li>+120K impressions via geo-targeted ads</li>
+                <li>New brand system + landing page suite</li>
+              </ul>
+            </div>
+          </article>
+                  <article class="case reveal">
+            <img src="./assets/img/campaign 4.jpg" alt="Mavericks Restaurant case" />
+            <div class="case-body">
+              <h3>Mavericks Flavor Launch</h3>
+              <p>Ignited buzz with themed activations, influencer drops, and a craveable content loop.</p>
+              <ul class="bullets">
+                <li>3 sold-out launch weekends</li>
+                <li>+75K organic reach</li>
+                <li>20% uplift in weekday foot traffic</li>
+              </ul>
+            </div>
+          </article>
+                <article class="case reveal">
+            <img src="./assets/img/campaign 6.jpg" alt="Zuri Cuts Butchery case" />
+            <div class="case-body">
+              <h3>Zuri Cuts Premium Push</h3>
+              <p>Positioned Zuri Cuts as Nairobi’s go-to for premium meats with a loyalty-first campaign.</p>
+              <ul class="bullets">
+                <li>+60% repeat customer rate</li>
+                <li>Branded packaging + signage rollout</li>
+                <li>15K+ loyalty program signups</li>
+              </ul>
+            </div>
+          </article>
+      </div>
+
+      <h3 class="subhead reveal">Featured Marketing Posters</h3>
+      <div class="poster-grid">
+        <img src="./assets/img/poster-1.jpg" alt="Poster 1" class="reveal"/>
+        <img src="./assets/img/poster-2.jpg" alt="Poster 2" class="reveal"/>
+        <img src="./assets/img/poster-3.jpg" alt="Poster 3" class="reveal"/>
+        <img src="./assets/img/poster-4.jpg" alt="Poster 4" class="reveal"/>
+      </div>
+
+      <div class="cta-banner reveal">
+        <div class="cta-copy">
+          <h3>Need a campaign that delivers?</h3>
+          <p>i pair sharp creative with smart distribution.</p>
+        </div>
+        <a class="btn" href="#contact">Start your campaign</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Photography -->
+  <section class="section" id="photography" aria-labelledby="photo-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="photo-title">Photography Portfolio</h2>
+        <p class="muted">Moments that train the design eye.</p>
+      </div>
+
+      <div class="stats-grid reveal">
+        <div class="stat"><div class="stat-num">1,000+</div><div class="stat-label">Photos</div></div>
+        <div class="stat"><div class="stat-num">25k+</div><div class="stat-label">Views</div></div>
+        <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Clients</div></div>
+        <div class="stat"><div class="stat-num">1</div><div class="stat-label">Awards</div></div>
+      </div>
+
+      <div class="gallery">
+        <img src="./assets/img/photo-1.png" alt="food" class="reveal"/>
+        <img src="./assets/img/photo-2.png" alt="CEO" class="reveal"/>
+        <img src="./assets/img/photo-3.png" alt="barista" class="reveal"/>
+        <img src="./assets/img/photo-4.png" alt="Land owner" class="reveal"/>
+        <img src="./assets/img/photo-5.png" alt="property consultant" class="reveal"/>
+        <img src="./assets/img/photo-6.png" alt="barber vibes" class="reveal"/>
+        <img src="./assets/img/photo-7.png" alt="lover wins" class="reveal"/>
+        <img src="./assets/img/photo-8.png" alt="Finishing is must" class="reveal"/>
+      </div>
+
+      <div class="two-col">
+        <div class="reveal">
+          <h3>Philosophy</h3>
+          <p>Photography is about freezing small truths—light, timing, perspective. The practice shapes how I design: focus on what matters, remove what doesn't.</p>
+        </div>
+        <div class="reveal">
+          <h3>Gear</h3>
+          <ul class="gear">
+            <li>Canon EOS R‑series · Sony α7R‑series</li>
+            <li>24‑70mm f/2.8 · 70‑200mm f/4 · 16‑35mm f/4</li>
+            <li>Carbon fiber tripod · ND filters · Remote trigger</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cta-banner reveal">
+        <div class="cta-copy">
+          <h3>Need professional photos?</h3>
+          <p>I'm available for select shoots: brand, product, and events.</p>
+        </div>
+        <a class="btn" href="#contact">Book a session</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section" id="contact" aria-labelledby="contact-title">
+    <div class="container two-col">
+      <div class="reveal">
+        <h2 id="contact-title">Get in Touch</h2>
+        <p>Ready to bring ideas to life? Tell me about your project and goals.</p>
+        <ul class="contact-list">
+          <li><strong>Email:</strong> <a href="mailto:ceeddy492@gmail.com">ceeddy492@gmail.com</a></li>
+          <li><strong>Phone:</strong> <a href="tel:+254112129347">+254 112 129 347</a></li>
+          <li><strong>Location:</strong> Kenya, Nairobi</li>
+          <li><strong>Availability:</strong> Open to new projects · replies within 24h</li>
+        </ul>
+      </div>
+      <form class="contact-form reveal" id="contact-form" novalidate>
+        <label for="name">Your Name</label>
+        <input id="name" name="name" type="text">
+
+        <label for="email">Email Address</label>
+        <input id="email" name="email" type="email">
+
+        <label for="details">Project Details</label>
+        <textarea id="details" name="details" rows="5" placeholder="What are we building?" required></textarea>
+
+        <button class="btn" type="submit">Send Message</button>
+        <p class="form-msg" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+  <div class="footer-nav">
+    <a href="#about">About</a>
+    <a href="#experience">Work</a>
+    <a href="#projects">Projects</a>
+    <a href="#marketing">Marketing</a>
+    <a href="#photography">Photography</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <div class="footer-social">
+    <a href="https://github.com/Ceeddy" aria-label="Visit our GitHub profile"><i class="fab fa-github"></i></a>
+  </div>
+
+  <p class="footer-copy">&copy; 2025 coded by cedInc.</p>
+</footer>
+
+  <!-- Modal -->
+  <dialog class="modal" id="project-modal" aria-label="Project details">
+    <button class="modal-close" aria-label="Close">×</button>
+    <div class="modal-content">
+      <img id="modal-img" alt="" />
+      <div class="modal-text">
+        <h3 id="modal-title"></h3>
+        <p id="modal-desc"></p>
+        <ul id="modal-tech" class="tech"></ul>
+      </div>
+    </div>
+  </dialog>
+  <!-- WhatsApp Floating Button -->
+      <a href="https://wa.me/+254112129347" 
+      rel="noopener"
+      class="whatsapp-float" 
+      target="_blank" 
+      aria-label="Chat on WhatsApp">
+      <img src="./assets/img/app icon.png" alt="WhatsApp" />
+    </a>
+
+
+  <script>
+    // update footer year without waiting for scripts.js
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script>
+  window.addEventListener("load", () => {
+    const preloader = document.getElementById("preloader");
+    preloader.classList.add("fade-out");
+  });
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const counters = document.querySelectorAll(".kpi-num");
+  const speed = 100; // smaller = faster
+
+  const animate = (counter) => {
+    const target = counter.getAttribute("data-target");
+    const isPercent = target.includes("%");
+    const isPlus = target.includes("+");
+    const isM = target.includes("M");
+
+    let cleanTarget = parseFloat(target.replace(/[^0-9.]/g, ""));
+    let count = 0;
+    const step = cleanTarget / speed;
+
+    const update = () => {
+      count += step;
+      if (count < cleanTarget) {
+        counter.innerText =
+          (isM ? (count / 1e6).toFixed(1) + "M" :
+          isPercent ? Math.floor(count) + "%" :
+          isPlus ? Math.floor(count) + "+" :
+          Math.floor(count));
+        requestAnimationFrame(update);
+      } else {
+        counter.innerText = target; // final value
+      }
+    };
+
+    update();
+  };
+
+  // observer to trigger animation when visible
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const counter = entry.target;
+        animate(counter);
+        observer.unobserve(counter); // run once
+      }
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach(counter => {
+    counter.setAttribute("data-target", counter.innerText);
+    observer.observe(counter);
+  });
+});
+</script>
+</body>
+</html>

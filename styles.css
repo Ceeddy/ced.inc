@@ -756,18 +756,23 @@ ul{ padding:0; margin:0; list-style:none; }
   margin-top: 2rem;
 }
 
-.poster-grid img {
+.pin-grid img {
   width: 100%;
+  height: 420px;              /* UNIFORM HEIGHT */
+  object-fit: cover;          /* Crop nicely */
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-soft);
+  margin-bottom: 16px;
+  break-inside: avoid;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
 }
 
-.poster-grid img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+.pin-grid img:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.3);
 }
+
 .view-more-wrapper {
   text-align: center;
   margin-top: 2.5rem;

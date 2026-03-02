@@ -1,656 +1,1138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Creative Portfolio — Layout & Interactions</title>
-  <meta name="description" content="A clean, responsive portfolio layout with sections for About, Experience, Projects, Marketing, Photography, and Contact." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css" />
-  <script defer src="./scripts.js"></script>
-  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Zana AI — Your Business. Always Working.</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&family=Clash+Display:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<!-- Clash Display fallback -->
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+:root{
+  --blue:#1A6BFF;
+  --blue-dark:#0F4FCC;
+  --blue-deep:#0A3A9E;
+  --blue-light:#EBF2FF;
+  --blue-mid:#C7DCFF;
+  --cream:#FAFBFF;
+  --cream2:#F0F4FF;
+  --ink:#0A0F1E;
+  --ink2:#1E2640;
+  --muted:#5A6480;
+  --light:#9BA5C0;
+  --border:rgba(26,107,255,0.1);
+  --border2:rgba(26,107,255,0.18);
+  --white:#ffffff;
+  --shadow-blue:0 20px 60px rgba(26,107,255,0.15);
+  --shadow-sm:0 4px 16px rgba(10,15,30,0.08);
+}
+body{background:var(--cream);color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden;}
 
+/* ── LOGO FONT ── */
+.logo-text{
+  font-family:'Clash Display','Plus Jakarta Sans',sans-serif;
+  font-weight:700;font-size:1.6rem;letter-spacing:-0.5px;
+  background:linear-gradient(135deg,var(--blue) 0%,var(--blue-deep) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.logo-icon{
+  width:36px;height:36px;border-radius:10px;
+  background:linear-gradient(135deg,var(--blue) 0%,var(--blue-deep) 100%);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 12px rgba(26,107,255,0.35);
+  flex-shrink:0;
+}
+.logo-icon svg{width:20px;height:20px;fill:white;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1rem 4rem;
+  background:rgba(250,251,255,0.95);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  transition:all 0.3s;
+}
+nav.scrolled{padding:0.75rem 4rem;box-shadow:0 2px 24px rgba(26,107,255,0.08);}
+.logo{text-decoration:none;display:flex;align-items:center;gap:0.6rem;}
+.nav-links{display:flex;gap:2.5rem;list-style:none;align-items:center;}
+.nav-links a{text-decoration:none;color:var(--muted);font-size:0.88rem;font-weight:500;transition:color 0.2s;}
+.nav-links a:hover{color:var(--blue);}
+.nav-cta{
+  background:linear-gradient(135deg,var(--blue),var(--blue-dark))!important;
+  color:white!important;padding:0.6rem 1.5rem;border-radius:8px;
+  font-weight:600!important;font-size:0.88rem!important;
+  box-shadow:0 4px 14px rgba(26,107,255,0.3)!important;
+  transition:all 0.2s!important;
+}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(26,107,255,0.4)!important;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
+.hamburger span{width:22px;height:2px;background:var(--ink);border-radius:2px;transition:all 0.3s;}
+.mob-menu{display:none;position:fixed;top:68px;left:0;right:0;background:white;border-bottom:1px solid var(--border);padding:1.5rem 2rem;flex-direction:column;gap:1.2rem;z-index:199;box-shadow:var(--shadow-blue);}
+.mob-menu.open{display:flex;}
+.mob-menu a{text-decoration:none;color:var(--ink);font-size:1rem;font-weight:600;padding:0.4rem 0;border-bottom:1px solid var(--border);}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  padding-top:68px;position:relative;overflow:hidden;
+}
+.hero-left{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:5rem 4rem;position:relative;
+  background:linear-gradient(145deg,var(--ink) 0%,var(--ink2) 100%);
+  overflow:hidden;
+}
+/* Subtle blue glow effects */
+.hero-left::before{
+  content:'';position:absolute;bottom:-15%;left:-15%;
+  width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(26,107,255,0.15) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hero-left::after{
+  content:'';position:absolute;top:-10%;right:-5%;
+  width:350px;height:350px;border-radius:50%;
+  background:radial-gradient(circle,rgba(26,107,255,0.08) 0%,transparent 60%);
+  pointer-events:none;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  font-size:0.72rem;font-weight:600;
+  letter-spacing:3px;text-transform:uppercase;
+  color:rgba(255,255,255,0.35);margin-bottom:1.8rem;
+}
+.eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);animation:eDot 2s ease-in-out infinite;}
+@keyframes eDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.5)}}
+.hero-h1{
+  font-family:'Clash Display','Plus Jakarta Sans',sans-serif;
+  font-size:clamp(3.5rem,7vw,7rem);
+  font-weight:700;letter-spacing:-2px;line-height:1;
+  color:white;margin-bottom:0.3rem;
+}
+.hero-h1 .blue-word{
+  background:linear-gradient(135deg,#60A5FA,var(--blue));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-tagline{
+  font-family:'Clash Display','Plus Jakarta Sans',sans-serif;
+  font-size:clamp(1.1rem,2vw,1.5rem);
+  font-weight:500;color:rgba(255,255,255,0.3);
+  letter-spacing:-0.5px;margin-bottom:1.8rem;
+}
+.hero-desc{
+  color:rgba(255,255,255,0.5);font-size:1rem;
+  line-height:1.85;max-width:400px;font-weight:300;
+  margin-bottom:2.5rem;
+}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
+.btn-blue{
+  display:inline-flex;align-items:center;gap:0.6rem;
+  background:linear-gradient(135deg,var(--blue),var(--blue-dark));
+  color:white;padding:0.9rem 1.8rem;border-radius:10px;
+  font-weight:700;font-size:0.92rem;
+  text-decoration:none;transition:all 0.25s;
+  box-shadow:0 4px 20px rgba(26,107,255,0.4);
+}
+.btn-blue:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(26,107,255,0.5);}
+.btn-ghost-white{
+  display:inline-flex;align-items:center;gap:0.6rem;
+  background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.7);
+  padding:0.9rem 1.8rem;border-radius:10px;
+  border:1px solid rgba(255,255,255,0.12);
+  font-weight:600;font-size:0.92rem;
+  text-decoration:none;transition:all 0.25s;
+}
+.btn-ghost-white:hover{border-color:rgba(255,255,255,0.3);color:white;background:rgba(255,255,255,0.1);}
+.hero-stats{
+  display:flex;gap:2.5rem;margin-top:3rem;
+  padding-top:2.5rem;border-top:1px solid rgba(255,255,255,0.07);
+}
+.stat-n{
+  font-family:'Clash Display','Plus Jakarta Sans',sans-serif;
+  font-size:2.2rem;font-weight:700;letter-spacing:-1px;
+  color:white;line-height:1;
+}
+.stat-l{font-size:0.72rem;color:rgba(255,255,255,0.3);margin-top:0.3rem;font-weight:500;letter-spacing:0.5px;}
+
+/* Hero Right — Image */
+.hero-right{
+  position:relative;overflow:hidden;
+  background:var(--blue-light);
+}
+.hero-img{
+  width:100%;height:100%;object-fit:cover;
+  filter:brightness(0.9) saturate(1.1);
+}
+.hero-img-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(26,107,255,0.2) 0%,rgba(10,15,30,0.1) 100%);
+}
+/* Floating card on image */
+.hero-card{
+  position:absolute;bottom:2.5rem;left:2.5rem;right:2.5rem;
+  background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);
+  border-radius:16px;padding:1.4rem 1.6rem;
+  box-shadow:0 20px 50px rgba(10,15,30,0.2);
+  border:1px solid rgba(255,255,255,0.8);
+}
+.hc-top{display:flex;align-items:center;gap:0.8rem;margin-bottom:1rem;}
+.hc-avatar{
+  width:40px;height:40px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--blue-dark));
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.hc-avatar svg{width:18px;height:18px;fill:white;}
+.hc-name{font-weight:700;font-size:0.9rem;color:var(--ink);}
+.hc-status{display:flex;align-items:center;gap:0.4rem;margin-top:0.15rem;}
+.hc-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;animation:hcPulse 2s infinite;}
+@keyframes hcPulse{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,0.4)}50%{box-shadow:0 0 0 4px rgba(34,197,94,0)}}
+.hc-st{font-size:0.7rem;color:var(--muted);}
+.hc-msgs{display:flex;flex-direction:column;gap:0.6rem;}
+.hc-msg{display:flex;gap:0.5rem;align-items:flex-end;}
+.hc-msg.u{flex-direction:row-reverse;}
+.hc-bub{
+  max-width:80%;padding:0.55rem 0.85rem;
+  border-radius:10px;font-size:0.78rem;line-height:1.5;
+}
+.hc-msg.b .hc-bub{background:var(--blue-light);color:var(--ink);border-radius:3px 10px 10px 10px;}
+.hc-msg.u .hc-bub{background:var(--blue);color:white;border-radius:10px 3px 10px 10px;}
+.hc-av{width:22px;height:22px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:white;font-weight:700;flex-shrink:0;}
+.hc-msg.u .hc-av{background:var(--blue-mid);color:var(--blue-dark);}
+
+/* Floating badges */
+.fbadge{
+  position:absolute;background:white;border-radius:12px;
+  padding:0.7rem 1rem;box-shadow:var(--shadow-sm);
+  display:flex;align-items:center;gap:0.6rem;
+  font-size:0.75rem;font-weight:600;color:var(--ink);z-index:2;
+}
+.fb1{top:2rem;right:2rem;animation:fbFloat 4s ease-in-out infinite;}
+.fb2{top:2rem;left:2rem;animation:fbFloat 4s 2s ease-in-out infinite;}
+@keyframes fbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.fbi{font-size:1rem;}
+
+/* ── TICKER ── */
+.ticker-section{background:var(--ink);padding:0.85rem 0;overflow:hidden;}
+.ticker-track{display:flex;width:max-content;animation:tickMove 28s linear infinite;}
+.tick-item{
+  display:flex;align-items:center;gap:1rem;padding:0 2.5rem;
+  font-size:0.78rem;font-weight:600;
+  color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:2.5px;white-space:nowrap;
+}
+.tick-dot{color:var(--blue);font-size:1rem;}
+@keyframes tickMove{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── SECTION BASE ── */
+section{padding:7rem 4rem;}
+.section-label{
+  font-size:0.7rem;font-weight:700;
+  letter-spacing:4px;text-transform:uppercase;
+  color:var(--blue);margin-bottom:0.8rem;
+  display:flex;align-items:center;gap:0.5rem;
+}
+.section-label::before{content:'';width:20px;height:2px;background:var(--blue);border-radius:1px;}
+.section-title{
+  font-family:'Clash Display','Plus Jakarta Sans',sans-serif;
+  font-size:clamp(2.5rem,4.5vw,4rem);
+  font-weight:700;letter-spacing:-1.5px;line-height:1;color:var(--ink);
+}
+.section-sub{color:var(--muted);font-size:1rem;line-height:1.8;font-weight:400;margin-top:1rem;}
+
+/* ── SERVICES ── */
+#services{background:var(--white);padding:0;}
+.sv-wrap{display:grid;grid-template-columns:1fr 1fr;}
+.sv-left{
+  background:var(--blue-light);padding:7rem 4rem;
+  display:flex;flex-direction:column;justify-content:center;
+  position:sticky;top:68px;height:calc(100vh - 68px);
+}
+.sv-left .section-title{font-size:clamp(2.2rem,3.5vw,3.5rem);}
+.sv-left .section-sub{max-width:300px;}
+/* Real image in services */
+.sv-img{
+  width:100%;height:220px;object-fit:cover;
+  border-radius:14px;margin-top:2rem;
+  box-shadow:var(--shadow-blue);
+}
+.sv-right{}
+.sv-item{
+  padding:2.2rem 4rem;border-bottom:1px solid var(--border);
+  display:flex;align-items:flex-start;gap:1.4rem;
+  background:white;transition:all 0.3s;cursor:default;
+}
+.sv-item:first-child{border-top:1px solid var(--border);}
+.sv-item:hover{background:var(--ink);padding-left:4.5rem;}
+.sv-item:hover .sv-title{color:white;}
+.sv-item:hover .sv-desc{color:rgba(255,255,255,0.45);}
+.sv-item:hover .sv-ico{background:rgba(26,107,255,0.2);}
+.sv-ico{
+  width:50px;height:50px;border-radius:12px;
+  background:var(--blue-light);display:flex;
+  align-items:center;justify-content:center;
+  font-size:1.3rem;flex-shrink:0;transition:all 0.3s;
+}
+.sv-title{
+  font-family:'Clash Display','Plus Jakarta Sans',sans-serif;
+  font-size:1.1rem;font-weight:600;letter-spacing:-0.3px;
+  margin-bottom:0.5rem;transition:color 0.3s;color:var(--ink);
+}
+.sv-desc{font-size:0.9rem;color:var(--muted);line-height:1.75;transition:color 0.3s;}
+
+/* ── ABOUT / IMAGE SECTION ── */
+#about{
+  background:var(--cream2);padding:0;
+  display:grid;grid-template-columns:1fr 1fr;min-height:600px;
+}
+.about-img-wrap{position:relative;overflow:hidden;}
+.about-img{width:100%;height:100%;object-fit:cover;min-height:500px;}
+.about-img-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(26,107,255,0.3),rgba(10,15,30,0.2));
+}
+.about-content{
+  padding:6rem 4rem;display:flex;
+  flex-direction:column;justify-content:center;
+}
+.about-content .section-title{font-size:clamp(2rem,3.5vw,3.2rem);margin-bottom:1.5rem;}
+.about-content p{color:var(--muted);font-size:1rem;line-height:1.85;font-weight:400;margin-bottom:1.2rem;}
+.about-tags{display:flex;flex-wrap:wrap;gap:0.6rem;margin-top:1.5rem;}
+.about-tag{
+  background:var(--blue-light);color:var(--blue);
+  padding:0.4rem 1rem;border-radius:100px;
+  font-size:0.78rem;font-weight:600;letter-spacing:0.3px;
+  border:1px solid var(--border2);
+}
+
+/* ── PROCESS ── */
+#how{background:var(--cream);padding:7rem 0;}
+.how-inner{max-width:1200px;margin:0 auto;padding:0 4rem;}
+.how-hd{text-align:center;margin-bottom:5rem;}
+.step-row{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:0;overflow:hidden;margin-bottom:3px;
+}
+.step-row:nth-child(even) .step-vis{order:2;}
+.step-row:nth-child(even) .step-body{order:1;}
+.step-vis{
+  position:relative;overflow:hidden;min-height:320px;
+  display:flex;align-items:center;justify-content:center;
+}
+.step-vis img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+.step-vis-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(26,107,255,0.75),rgba(10,15,30,0.6));
+  display:flex;align-items:center;justify-content:center;
+}
+.step-num-ghost{
+  font-family:'Clash Display','Plus Jakarta Sans',sans-serif;
+  font-size:16rem;font-weight:700;letter-spacing:-8px;
+  color:rgba(255,255,255,0.06);position:absolute;line-height:1;user-select:none;
+}
+.step-ico{
+  width:80px;height:80px;border-radius:50%;
+  background:rgba(255,255,255,0.12);
+  border:1px solid rgba(255,255,255,0.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:2rem;position:relative;z-index:1;
+}
+.step-body{
+  background:white;padding:4rem;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.step-tag{
+  font-size:0.7rem;font-weight:700;letter-spacing:3px;
+  text-transform:uppercase;color:var(--blue);margin-bottom:1rem;
+}
+.step-body .section-title{font-size:clamp(1.8rem,3vw,2.8rem);}
+.step-body p{color:var(--muted);font-size:0.98rem;line-height:1.85;margin-top:1rem;font-weight:400;}
+
+/* ── COMPARE ── */
+#compare{
+  background:var(--ink);padding:7rem 4rem;
+}
+.cmp-hd{text-align:center;margin-bottom:4rem;}
+.cmp-hd .section-title{color:white;}
+.cmp-hd .section-label{justify-content:center;color:rgba(255,255,255,0.2);}
+.cmp-hd .section-label::before{background:rgba(255,255,255,0.2);}
+.cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;max-width:860px;margin:0 auto;}
+.cmp-col{padding:3rem;}
+.cmp-col.us{background:white;border-radius:2px;}
+.cmp-col.them{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);}
+.cmp-name{
+  font-family:'Clash Display','Plus Jakarta Sans',sans-serif;
+  font-size:1.6rem;font-weight:700;letter-spacing:-0.5px;margin-bottom:0.4rem;
+}
+.cmp-col.us .cmp-name{color:var(--blue);}
+.cmp-col.them .cmp-name{color:rgba(255,255,255,0.15);}
+.cmp-badge{
+  display:inline-block;font-size:0.68rem;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;
+  padding:0.2rem 0.9rem;border-radius:100px;margin-bottom:2rem;
+}
+.cmp-col.us .cmp-badge{background:var(--blue);color:white;}
+.cmp-col.them .cmp-badge{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.18);}
+.cmp-row{
+  display:flex;align-items:center;gap:0.8rem;
+  padding:0.7rem 0;border-bottom:1px solid rgba(26,107,255,0.07);
+  font-size:0.9rem;
+}
+.cmp-col.them .cmp-row{border-color:rgba(255,255,255,0.04);color:rgba(255,255,255,0.15);}
+.cmp-row:last-child{border:none;}
+.ck{font-weight:800;font-size:0.85rem;flex-shrink:0;}
+.cmp-col.us .ck{color:var(--blue);}
+.cmp-col.them .ck{color:rgba(255,255,255,0.1);}
+
+/* ── PRICING ── */
+#pricing{background:var(--cream2);padding:7rem 4rem;}
+.pr-hd{text-align:center;margin-bottom:1.5rem;}
+.ptog{display:flex;align-items:center;gap:1rem;justify-content:center;margin-bottom:3.5rem;}
+.tl{font-size:0.88rem;color:var(--muted);font-weight:500;}
+.tl.on{color:var(--ink);font-weight:700;}
+.tog{width:46px;height:25px;background:#C7D2E8;border-radius:100px;cursor:pointer;position:relative;transition:background 0.3s;}
+.tog.on{background:var(--blue);}
+.tk{position:absolute;top:3px;left:3px;width:19px;height:19px;border-radius:50%;background:white;transition:transform 0.3s;box-shadow:0 1px 4px rgba(0,0,0,0.2);}
+.tog.on .tk{transform:translateX(21px);}
+.save-badge{
+  background:linear-gradient(135deg,var(--blue),var(--blue-dark));
+  color:white;font-size:0.68rem;font-weight:700;
+  letter-spacing:1px;padding:0.25rem 0.9rem;
+  border-radius:100px;text-transform:uppercase;
+}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.plan{
+  padding:2.8rem 2.5rem;background:white;
+  border-radius:16px;border:1px solid var(--border);
+  position:relative;opacity:0;transform:translateY(30px);
+  transition:all 0.3s;
+}
+.plan:hover{transform:translateY(-6px)!important;box-shadow:var(--shadow-blue);border-color:var(--blue-mid);}
+.plan.feat{
+  background:linear-gradient(145deg,var(--blue),var(--blue-dark));
+  color:white;border-color:transparent;
+  box-shadow:0 20px 50px rgba(26,107,255,0.3);
+}
+.plan.feat:hover{box-shadow:0 30px 70px rgba(26,107,255,0.4);}
+.plan-badge{
+  position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+  background:white;color:var(--blue);
+  font-size:0.68rem;font-weight:700;letter-spacing:1.5px;
+  padding:0.3rem 1.1rem;border-radius:100px;
+  white-space:nowrap;text-transform:uppercase;
+  box-shadow:0 4px 14px rgba(26,107,255,0.2);
+}
+.plan-nm{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:var(--muted);margin-bottom:1.5rem;}
+.plan.feat .plan-nm{color:rgba(255,255,255,0.4);}
+.plan-pr{
+  font-family:'Clash Display','Plus Jakarta Sans',sans-serif;
+  font-size:3.2rem;font-weight:700;letter-spacing:-1px;line-height:1;color:var(--ink);
+}
+.plan.feat .plan-pr{color:white;}
+.plan-pr .cur{font-size:1rem;vertical-align:super;font-weight:600;}
+.plan-pr .per{font-size:0.88rem;font-family:'Plus Jakarta Sans',sans-serif;font-weight:400;color:var(--muted);letter-spacing:0;}
+.plan.feat .plan-pr .per{color:rgba(255,255,255,0.35);}
+.plan-desc{font-size:0.88rem;color:var(--muted);margin:1rem 0 2rem;line-height:1.7;}
+.plan.feat .plan-desc{color:rgba(255,255,255,0.5);}
+.plan-feats{list-style:none;display:flex;flex-direction:column;gap:0.75rem;margin-bottom:2.5rem;}
+.plan-feats li{font-size:0.88rem;color:var(--muted);display:flex;align-items:center;gap:0.7rem;}
+.plan-feats li::before{content:'✓';color:var(--blue);font-weight:800;flex-shrink:0;}
+.plan-feats li.no::before{content:'✕';color:#C7D2E8;}
+.plan-feats li.no{color:#C7D2E8;}
+.plan.feat .plan-feats li{color:rgba(255,255,255,0.65);}
+.plan.feat .plan-feats li::before{color:rgba(255,255,255,0.9);}
+.plan.feat .plan-feats li.no{color:rgba(255,255,255,0.2);}
+.plan.feat .plan-feats li.no::before{color:rgba(255,255,255,0.2);}
+.plan-btn{
+  width:100%;padding:0.9rem;
+  font-size:0.9rem;font-weight:700;
+  cursor:pointer;border:1.5px solid var(--border2);
+  background:transparent;color:var(--blue);
+  border-radius:8px;transition:all 0.2s;letter-spacing:0.3px;
+}
+.plan.feat .plan-btn{background:white;border-color:white;color:var(--blue);}
+.plan-btn:hover{background:var(--blue);color:white;border-color:var(--blue);}
+.plan.feat .plan-btn:hover{background:rgba(255,255,255,0.85);}
+
+/* ── TESTIMONIALS ── */
+#testimonials{background:var(--white);padding:7rem 4rem;}
+.tm-hd{margin-bottom:4rem;}
+.tm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.testi{
+  padding:2.5rem;background:var(--cream2);
+  border-radius:16px;border:1px solid var(--border);
+  opacity:0;transform:translateY(30px);transition:all 0.3s;
+}
+.testi:hover{transform:translateY(-5px)!important;box-shadow:var(--shadow-blue);border-color:var(--blue-mid);background:white;}
+.tm-stars{color:var(--blue);font-size:0.85rem;margin-bottom:1rem;letter-spacing:2px;}
+.tm-quote{font-size:0.93rem;color:var(--muted);line-height:1.8;font-weight:400;font-style:italic;margin-bottom:2rem;}
+.tm-author{display:flex;align-items:center;gap:0.8rem;}
+.tm-av{
+  width:40px;height:40px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--blue-dark));
+  color:white;display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:0.82rem;flex-shrink:0;
+}
+.tm-name{font-weight:700;font-size:0.9rem;color:var(--ink);}
+.tm-role{font-size:0.75rem;color:var(--light);margin-top:0.15rem;}
+
+/* ── FAQ ── */
+#faq{background:var(--blue-light);padding:7rem 4rem;}
+.faq-wrap{display:grid;grid-template-columns:1fr 2fr;gap:6rem;align-items:start;}
+.faq-intro .section-title{font-size:clamp(2.2rem,3.5vw,3.5rem);}
+.faq-intro p{color:var(--muted);font-size:1rem;line-height:1.8;margin-top:1.2rem;}
+.faq-items{display:flex;flex-direction:column;}
+.faq-i{border-bottom:1px solid var(--border2);background:white;margin-bottom:2px;border-radius:2px;}
+.faq-i:first-child{border-top:1px solid var(--border2);}
+.faq-q{
+  padding:1.3rem 1.5rem;cursor:pointer;
+  display:flex;justify-content:space-between;align-items:center;
+  font-weight:600;font-size:0.95rem;
+  user-select:none;color:var(--ink);transition:color 0.2s;
+}
+.faq-q:hover{color:var(--blue);}
+.faq-ico{
+  width:28px;height:28px;
+  border:1.5px solid var(--border2);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1rem;transition:all 0.3s;flex-shrink:0;color:var(--blue);
+}
+.faq-i.open .faq-ico{transform:rotate(45deg);background:var(--blue);color:white;border-color:var(--blue);}
+.faq-a{
+  max-height:0;overflow:hidden;
+  transition:max-height 0.35s ease,padding 0.35s;
+  font-size:0.93rem;color:var(--muted);line-height:1.8;padding:0 1.5rem;
+}
+.faq-i.open .faq-a{max-height:200px;padding:0 1.5rem 1.4rem;}
+
+/* ── CONTACT ── */
+#contact{
+  background:var(--ink);padding:7rem 4rem;
+  position:relative;overflow:hidden;
+}
+#contact::before{
+  content:'';position:absolute;top:-20%;right:-10%;
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(26,107,255,0.12) 0%,transparent 65%);
+  pointer-events:none;
+}
+.ct-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start;position:relative;z-index:1;}
+.ct-left .section-label{color:rgba(255,255,255,0.2);}
+.ct-left .section-label::before{background:rgba(255,255,255,0.2);}
+.ct-left .section-title{color:white;font-size:clamp(2.2rem,3.5vw,3.5rem);margin-top:0.8rem;}
+.ct-left p{color:rgba(255,255,255,0.4);font-size:1rem;line-height:1.85;margin:1.5rem 0 2.5rem;}
+.book-btn{
+  display:inline-flex;align-items:center;gap:0.7rem;
+  background:linear-gradient(135deg,var(--blue),var(--blue-dark));
+  color:white;padding:1rem 2rem;border-radius:10px;
+  font-weight:700;font-size:0.95rem;
+  text-decoration:none;transition:all 0.25s;margin-bottom:3rem;
+  box-shadow:0 4px 20px rgba(26,107,255,0.4);
+}
+.book-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(26,107,255,0.5);}
+.ct-info{display:flex;flex-direction:column;gap:1.2rem;}
+.ct-row{display:flex;align-items:center;gap:1rem;}
+.ct-ico{
+  width:44px;height:44px;border-radius:10px;
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.08);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;flex-shrink:0;
+}
+.ct-lbl{font-size:0.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-bottom:0.15rem;}
+.ct-val{font-size:0.9rem;color:rgba(255,255,255,0.5);}
+.ct-form{display:flex;flex-direction:column;gap:1rem;}
+.ct-row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.ct-fg{display:flex;flex-direction:column;gap:0.4rem;}
+.ct-flbl{font-size:0.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.25);}
+.ct-inp,.ct-sel,.ct-ta{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:10px;padding:0.85rem 1rem;
+  color:white;font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:0.9rem;outline:none;
+  transition:border-color 0.2s,background 0.2s;
+}
+.ct-inp:focus,.ct-sel:focus,.ct-ta:focus{border-color:rgba(26,107,255,0.6);background:rgba(26,107,255,0.08);}
+.ct-sel option{background:#1E2640;color:white;}
+.ct-ta{resize:vertical;min-height:110px;}
+.ct-sub{
+  background:linear-gradient(135deg,var(--blue),var(--blue-dark));
+  color:white;border:none;padding:1rem 1.5rem;border-radius:10px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:0.95rem;font-weight:700;cursor:pointer;
+  transition:all 0.25s;box-shadow:0 4px 14px rgba(26,107,255,0.3);
+}
+.ct-sub:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(26,107,255,0.45);}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--ink);padding:2rem 4rem;
+  border-top:1px solid rgba(255,255,255,0.05);
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+}
+.ft-logo{display:flex;align-items:center;gap:0.5rem;}
+.ft-logo .logo-text{font-size:1.2rem;}
+.ft-links{display:flex;gap:2rem;flex-wrap:wrap;}
+.ft-links a{font-size:0.82rem;color:rgba(255,255,255,0.2);text-decoration:none;transition:color 0.2s;}
+.ft-links a:hover{color:rgba(255,255,255,0.6);}
+footer p{font-size:0.75rem;color:rgba(255,255,255,0.12);}
+
+/* ── REVEAL ANIMATIONS ── */
+.reveal{opacity:0;transform:translateY(36px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-l{opacity:0;transform:translateX(-40px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal-l.visible{opacity:1;transform:translateX(0);}
+.reveal-r{opacity:0;transform:translateX(40px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal-r.visible{opacity:1;transform:translateX(0);}
+
+/* ── MOBILE ── */
+@media(max-width:960px){
+  nav{padding:1rem 1.5rem;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .hero{grid-template-columns:1fr;min-height:auto;}
+  .hero-left{padding:6rem 2rem 4rem;}
+  .hero-right{min-height:420px;}
+  .fb1,.fb2{display:none;}
+  section{padding:4rem 1.5rem;}
+  #compare,#pricing,#faq,#contact{padding:4rem 1.5rem;}
+  #how{padding:4rem 0;}
+  .sv-wrap{grid-template-columns:1fr;}
+  .sv-left{position:relative;top:0;height:auto;padding:4rem 1.5rem;}
+  .sv-item{padding:1.8rem 1.5rem;}
+  .sv-item:hover{padding-left:1.8rem;}
+  #about{grid-template-columns:1fr;}
+  .about-img{min-height:300px;}
+  .about-content{padding:4rem 1.5rem;}
+  .step-row{grid-template-columns:1fr;}
+  .step-row:nth-child(even) .step-vis,.step-row:nth-child(even) .step-body{order:unset;}
+  .step-vis{min-height:220px;}
+  .step-body{padding:2.5rem 1.5rem;}
+  .cmp-grid,.plans,.tm-grid{grid-template-columns:1fr;}
+  .faq-wrap,.ct-grid{grid-template-columns:1fr;gap:3rem;}
+  .ct-row2{grid-template-columns:1fr;}
+  .how-inner{padding:0 1.5rem;}
+  footer{flex-direction:column;text-align:center;padding:2rem 1.5rem;}
+  .ft-links{justify-content:center;}
+}
+
+/* ── CHAT WIDGET ── */
+#wo{position:fixed;inset:0;z-index:9998;background:rgba(10,15,30,0.4);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity 0.3s;}
+#wo.open{opacity:1;pointer-events:all;}
+#ww{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.92);width:400px;max-width:calc(100vw - 2rem);height:560px;max-height:calc(100vh - 2rem);background:#fff;border-radius:20px;box-shadow:0 30px 80px rgba(26,107,255,0.2),0 0 0 1px rgba(26,107,255,0.08);display:flex;flex-direction:column;z-index:9999;overflow:hidden;opacity:0;pointer-events:none;transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1);}
+#ww.open{opacity:1;pointer-events:all;transform:translate(-50%,-50%) scale(1);}
+#wh{background:linear-gradient(135deg,var(--blue),var(--blue-dark));padding:1.2rem 1.4rem;display:flex;align-items:center;gap:0.9rem;flex-shrink:0;}
+.wav{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.wav svg{width:20px;height:20px;fill:white;}
+.whi{flex:1;}
+.whn{font-family:'Clash Display','Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:700;letter-spacing:-0.3px;color:white;line-height:1;}
+.whs{display:flex;align-items:center;gap:0.4rem;margin-top:0.25rem;}
+.whd{width:7px;height:7px;border-radius:50%;background:#4ade80;animation:whP 2s infinite;}
+@keyframes whP{0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,0.4)}50%{box-shadow:0 0 0 4px rgba(74,222,128,0)}}
+.wht{font-size:0.7rem;color:rgba(255,255,255,0.5);}
+.wcl{width:30px;height:30px;background:rgba(255,255,255,0.1);border-radius:50%;border:none;color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:background 0.2s;}
+.wcl:hover{background:rgba(255,255,255,0.2);}
+#wm{flex:1;overflow-y:auto;padding:1.2rem 1.2rem 0.5rem;display:flex;flex-direction:column;gap:0.9rem;scroll-behavior:smooth;}
+#wm::-webkit-scrollbar{width:4px;}
+#wm::-webkit-scrollbar-thumb{background:var(--blue-mid);border-radius:2px;}
+.wmsg{display:flex;gap:0.6rem;align-items:flex-end;animation:wIn 0.3s cubic-bezier(0.34,1.56,0.64,1) both;}
+@keyframes wIn{from{opacity:0;transform:translateY(10px) scale(0.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+.wmsg.user{flex-direction:row-reverse;}
+.wmav{width:28px;height:28px;border-radius:50%;background:var(--blue);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:0.7rem;color:white;font-weight:700;}
+.wmsg.user .wmav{background:var(--blue-mid);color:var(--blue-dark);}
+.wbub{max-width:78%;padding:0.75rem 1rem;border-radius:14px;font-size:0.88rem;line-height:1.6;word-wrap:break-word;}
+.wmsg.bot .wbub{background:var(--blue-light);color:var(--ink);border-radius:3px 14px 14px 14px;}
+.wmsg.user .wbub{background:var(--blue);color:white;border-radius:14px 3px 14px 14px;}
+.wtyp{display:flex;gap:4px;align-items:center;padding:0.85rem 1rem;}
+.wtyp span{width:7px;height:7px;border-radius:50%;background:var(--blue-mid);animation:wtypa 1.2s infinite;}
+.wtyp span:nth-child(2){animation-delay:0.2s;}.wtyp span:nth-child(3){animation-delay:0.4s;}
+@keyframes wtypa{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+#wqr{padding:0.6rem 1.2rem;display:flex;gap:0.5rem;flex-wrap:wrap;flex-shrink:0;}
+.wqb{background:transparent;border:1.5px solid var(--blue-mid);color:var(--blue);padding:0.4rem 0.9rem;border-radius:100px;font-size:0.78rem;font-weight:600;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.wqb:hover{background:var(--blue);color:white;border-color:var(--blue);}
+#wia{padding:0.9rem 1.2rem;border-top:1px solid var(--border);display:flex;gap:0.6rem;align-items:center;flex-shrink:0;background:white;}
+#wi{flex:1;border:1.5px solid var(--blue-mid);border-radius:10px;padding:0.7rem 1rem;font-family:'Plus Jakarta Sans',sans-serif;font-size:0.88rem;outline:none;transition:border-color 0.2s;resize:none;line-height:1.4;color:var(--ink);background:var(--blue-light);max-height:100px;}
+#wi:focus{border-color:var(--blue);background:white;}
+#wsb{width:40px;height:40px;flex-shrink:0;background:linear-gradient(135deg,var(--blue),var(--blue-dark));border:none;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;box-shadow:0 4px 12px rgba(26,107,255,0.3);}
+#wsb:hover{transform:scale(1.05);box-shadow:0 6px 18px rgba(26,107,255,0.4);}
+#wsb svg{width:18px;height:18px;fill:white;}
+#wsb:disabled{background:var(--blue-mid);cursor:not-allowed;transform:none;box-shadow:none;}
+#wtr{position:fixed;bottom:2rem;right:2rem;z-index:9997;width:58px;height:58px;background:linear-gradient(135deg,var(--blue),var(--blue-dark));border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(26,107,255,0.4);transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);animation:wtrP 0.5s 0.5s both;}
+@keyframes wtrP{from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)}}
+#wtr:hover{transform:scale(1.1);box-shadow:0 12px 40px rgba(26,107,255,0.5);}
+#wtr.open{transform:scale(0.9) rotate(90deg);}
+#wtr svg{width:26px;height:26px;fill:white;}
+.wtp{position:absolute;inset:-4px;border-radius:50%;border:2px solid rgba(26,107,255,0.25);animation:wtR 2.5s infinite;}
+@keyframes wtR{0%{transform:scale(1);opacity:0.5}100%{transform:scale(1.4);opacity:0}}
+.wpow{text-align:center;padding:0.4rem;font-size:0.65rem;color:var(--light);}
+.wpow a{color:var(--blue);text-decoration:none;font-weight:600;}
+</style>
 </head>
-<!-- Preloader -->
-<div id="preloader">
-  <div class="spinner"></div>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="logo" href="#">
+    <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+    <span class="logo-text">Zana AI</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#how">Process</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="https://calendly.com/antiquevaultke/30min" target="_blank" class="nav-cta">Book a Call</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+<div class="mob-menu" id="mobmenu">
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#how" onclick="closeMenu()">Process</a>
+  <a href="#pricing" onclick="closeMenu()">Pricing</a>
+  <a href="#faq" onclick="closeMenu()">FAQ</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+  <a href="https://calendly.com/antiquevaultke/30min" target="_blank" style="color:var(--blue);font-weight:800;" onclick="closeMenu()">📅 Book Free Call</a>
 </div>
 
-<body>
-  <!-- Header / Navbar -->
-  <header class="site-header" id="top">
-    <div class="container nav-wrap">
-      <a href="#top" class="brand" aria-label="Homepage">Cedinc<span class="accent">.</span></a>
-      <nav class="nav" aria-label="Primary navigation">
-        <a href="#about" class="nav-link">About</a>
-        <a href="#experience" class="nav-link">Work</a>
-        <a href="#projects" class="nav-link">Projects</a>
-        <a href="#marketing" class="nav-link">Marketing</a>
-        <a href="#photography" class="nav-link">Photography</a>
-        <a href="#contact" class="nav-link">Contact</a>
-      </nav>
-      <div class="nav-cta">
-        <a class="btn btn-outline small" href="#contact">Get in Touch</a>
-        <a class="btn small" href="#" id="book-call">Book a Call</a>
-      </div>
-      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow reveal-l"><span class="eyebrow-dot"></span>Nairobi, Kenya · AI Automation Agency</div>
+    <h1 class="hero-h1 reveal-l" style="transition-delay:0.1s;">Your<br>Business.<br><span class="blue-word">Always</span><br>Working.</h1>
+    <p class="hero-desc reveal-l" style="transition-delay:0.25s;">We build custom AI chatbots and automation workflows so your business never misses a customer — day or night, 24/7, on autopilot.</p>
+    <div class="hero-btns reveal-l" style="transition-delay:0.35s;">
+      <a href="#contact" class="btn-blue">Get Started ↗</a>
+      <a href="https://calendly.com/antiquevaultke/30min" target="_blank" class="btn-ghost-white">📅 Book Free Call</a>
     </div>
-  </header>
-
-  <!-- Hero -->
-         <section class="hero">
-  <div class="hero-img">
-    <img src="./assets/img/hero 3-01.svg" alt="Cedric Profile">
-  </div>
-  <h2>Hi, I'm Ced 👋</h2>
-  <h1><span>Pioneer</span> & <span>Crafter </span></h1>
-  <p>
-    I'm a <strong>24-year-old creative professional</strong> who brings innovative ideas 
-    to life through thoughtful design and cutting-edge technology. 
-    I specialize in <strong>UI/UX Design</strong>, <strong>Digital Marketing</strong>, 
-    and <strong>AI Solutions</strong>.
-  </p>
-  <div class="hero-buttons">
-    <a href="#contact" class="btn primary">Get in Touch</a>
-    <a href="#projects" class="btn secondary">Available for new projects</a>
-  </div>
-</section>
-
-  <!-- About -->
-  <section class="section about" id="about" aria-labelledby="about-title">
-  <div class="container">
-    <div class="reveal">
-      <h2 id="about-title">About</h2>
-      <p>I'm a multidisciplinary creative specializing in interfaces that convert and campaigns that resonate. My approach blends research, rapid prototyping, data-driven iteration, and a sophisticated dash of taste.</p>
-      <p>Off the clock, you'll find me behind a camera. Photography keeps my eye sharp for composition, rhythm, and light—skills that translate directly into product design.</p>
+    <div class="hero-stats reveal-l" style="transition-delay:0.45s;">
+      <div><div class="stat-n">48H</div><div class="stat-l">To Go Live</div></div>
+      <div><div class="stat-n">24/7</div><div class="stat-l">Always On</div></div>
+      <div><div class="stat-n">100%</div><div class="stat-l">Custom Built</div></div>
     </div>
   </div>
-</section>
-
-
-  <!-- Experience -->
-  <section class="section" id="experience" aria-labelledby="experience-title">
-    <div class="container">
-      <div class="section-head">
-        <h2 id="experience-title">Work Experience</h2>
-        <p class="muted">A quick timeline of roles across design, technology, and growth.</p>
+  <div class="hero-right">
+    <!-- Real photo of African professional using tech -->
+    <img class="hero-img" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=900&q=85&fit=crop&crop=focalpoint" alt="Professional using AI tools"/>
+    <div class="hero-img-overlay"></div>
+    <!-- Floating badges -->
+    <div class="fbadge fb1"><span class="fbi">⚡</span>Response in 0.3s</div>
+    <div class="fbadge fb2"><span class="fbi">🤖</span>AI-Powered 24/7</div>
+    <!-- Chat card overlay -->
+    <div class="hero-card">
+      <div class="hc-top">
+        <div class="hc-avatar"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+        <div><div class="hc-name">Zana AI · Active</div><div class="hc-status"><div class="hc-dot"></div><div class="hc-st">Replies instantly</div></div></div>
       </div>
-
-      <ol class="timeline">
-        <li class="timeline-item reveal">
-          <div class="ti-head">
-            <h3 class="ti-role">Lead Designer/Marketing Manager</h3>
-            <span class="ti-org">Next Level Mavericks Group · HYBRID</span>
-            <span class="ti-date">2023 — 2025</span>
-          </div>
-          <p> I led the creation of impactful marketing campaigns, blending creative design with strategic vision. I managed teams, aligned visuals with brand goals, and used market insights to craft compelling narratives. My expertise in design tools and marketing trends drove innovative solutions, enhancing brand presence and delivering measurable results.
-
-          </p>
-        </li>
-
-        <li class="timeline-item reveal">
-          <div class="ti-head">
-            <h3 class="ti-role">Senior UI/UX Designer</h3>
-            <span class="ti-org">Easy Bake </span>
-            <span class="ti-date">2023 — 2024</span>
-          </div>
-          <p>I led the design of intuitive, user-centered interfaces, streamlining client workflows and enhancing user experiences. I collaborated with cross-functional teams to translate client needs into visually appealing and functional designs, prioritizing usability and accessibility. By leveraging user research and iterative design processes, I delivered tailored solutions that optimized client satisfaction and drove engagement.
-          </p>
-        </li>
-
-        <li class="timeline-item reveal">
-          <div class="ti-head">
-            <h3 class="ti-role">Product Designer</h3>
-            <span class="ti-org">E‑commerce Platform · Toronto Client</span>
-            <span class="ti-date">2022</span>
-          </div>
-          <p>As a Product Designer for a Toronto-based group project, I collaborated with colleagues to design a user-centric e-commerce platform. I contributed to creating intuitive interfaces, wireframes, and prototypes, ensuring a seamless user experience tailored to customer needs. By integrating user feedback and market trends, our team delivered a visually appealing and functional platform that enhanced usability and drove engagement.
-        </p>
-        </li>
-
-        <li class="timeline-item reveal">
-          <div class="ti-head">
-            <h3 class="ti-role">Digital Marketer</h3>
-            <span class="ti-org">Antique Vault KE</span>
-            <span class="ti-date">2022 — 2022</span>
-          </div>
-          <p>As a Digital Marketer, I crafted and executed data-driven campaigns to boost brand visibility and engagement across digital channels. I leveraged analytics, SEO, and social media strategies to target audiences effectively, optimizing content for maximum impact. Collaborating with cross-functional teams, I developed compelling marketing assets and monitored performance metrics to refine strategies, driving measurable growth in user acquisition and conversions.
-        </p>
-        </li>
-
-        <li class="timeline-item reveal">
-          <div class="ti-head">
-            <h3 class="ti-role">Photographer & Marketing Manager</h3>
-            <span class="ti-org">Freelance</span>
-            <span class="ti-date">2019 — 2020</span>
-          </div>
-          <p>As a Photographer and Marketing Manager, I combined creative visual storytelling with strategic marketing expertise to elevate brand presence. I captured high-quality, brand-aligned imagery and leveraged it across digital and print campaigns to engage target audiences. By integrating market insights and managing cross-channel strategies, I drove impactful campaigns that enhanced brand identity and boosted engagement, delivering measurable results.
-          </p>
-        </li>
-
-        <li class="timeline-item reveal">
-          <div class="ti-head">
-            <h3 class="ti-role">Social Media Specialist</h3>
-            <span class="ti-org">Quantum Solutions</span>
-            <span class="ti-date">2025 — 2025</span>
-          </div>
-          <p>As a Social Media Specialist, I developed and implemented social media strategies to enhance brand awareness and engagement. I created compelling content tailored to each platform, leveraging analytics to optimize performance. By fostering community interaction and monitoring trends, I successfully increased followers and drove traffic to the website.
-          </p>
-        </li>
-      </ol>
-
-      <div class="cta-banner reveal">
-        <div class="cta-copy">
-          <h3>Ready to collaborate?</h3>
-          <p>Let's build something delightful—and effective.</p>
-        </div>
-        <a class="btn" href="#contact">Discuss your project</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Projects -->
-  <section class="section" id="projects" aria-labelledby="projects-title">
-  <div class="container">
-    <div class="section-head">
-      <h2 id="projects-title">Featured Projects</h2>
-      <p class="muted">Real-world projects I’ve built — from fitness to rentals, property, and digital solutions.</p>
-    </div>
-
-    <div class="card-grid">
-
-      <!-- GoCart eCommerce App -->
-            <a href="https://gocart-ke-kzim.vercel.app/" target="_blank" rel="noopener noreferrer" class="card reveal">
-              <img src="./assets/img/gocart.png" alt="GoCart eCommerce App Hero Page" />
-              <div class="card-body">
-                <span class="tag">Web</span>
-                <h3>GoCart Kenya</h3>
-                <p>Full-featured eCommerce platform for multiple vendors with modern UI and dynamic pricing.</p>
-                <ul class="tech">
-                  <li>Next.js</li>
-                  <li>Tailwind CSS</li>
-                  <li>JavaScript</li>
-                  <li>Figma</li>
-                  <li>Git</li>
-                </ul>
-              </div>
-            </a>
-            
-            <!-- Weather App -->
-            <a href="https://ceeddy.github.io/skyvue-weather-app/" target="_blank" rel="noopener noreferrer" class="card reveal">
-              <img src="./assets/img/weather.png" alt="Weather App Hero Page" />
-              <div class="card-body">
-                <span class="tag">Web</span>
-                <h3>Weather App</h3>
-                <p>Interactive weather dashboard showing live data with clean, user-friendly UI.</p>
-                <ul class="tech">
-                  <li>HTML</li>
-                  <li>CSS</li>
-                  <li>JavaScript</li>
-                  <li>API Integration</li>
-                  <li>Git</li>
-                </ul>
-              </div>
-            </a>
-
-            <!-- Mpesa QR Payment System -->
-          <a href="https://ceeddy.github.io/MPESA-QR-DEMO/" target="_blank" rel="noopener noreferrer" class="card reveal">
-            <img src="./assets/img/mpesas.png" alt="Mpesa QR Payment System Demo" />
-            <div class="card-body">
-              <span class="tag">Safaricom Mpesa</span>
-              <h3>Mpesa QR Payment System</h3>
-              <p>Seamless QR-based payment flow for Mpesa, built with Next.js for optimized performance and real-time reliability.</p>
-              <ul class="tech"><li>Next.js</li><li>CSS</li><li>JavaScript</li><li>Firebase</li><li>Git</li></ul>
-            </div>
-          </a>
-
-           <!-- Imanage HR Solutions -->
-                <a href="https://ceeddy.github.io/Imanage/index.html" target="_blank" rel="noopener noreferrer" class="card reveal">
-            <img src="./assets/img/HR solutions.png" alt="HR Solutions Hero Page" />
-            <div class="card-body">
-              <span class="tag">Web</span>
-              <h3>Imanage HR Solutions</h3>
-              <p>Professional landing page for a modern HR and recruitment company, focused on people, talent, and growth.</p>
-              <ul class="tech">
-                <li>HTML</li>
-                <li>CSS</li>
-                <li>JS</li>
-                <li>Figma</li>
-                <li>Git</li>
-              </ul>
-            </div>
-          </a>
-
-          <!-- Antique Vault KE -->
-      <a href="https://ceeddy.github.io/AntiqueVaultweb/Home.html#" target="_blank" rel="noopener" class="card reveal">
-        <img src="./assets/img/AV.png" alt="AntiqueVaultKE Website" />
-        <div class="card-body">
-          <span class="tag">Business</span>
-          <h3>AntiqueVaultKE</h3>
-          <p>Clean, professional company site showcasing services & products.</p>
-          <ul class="tech"><li>HTML</li><li>CSS</li><li>JS</li><li>Git</li><li>Bootstrap</li></ul>
-        </div>
-      </a>
-
-            <!-- Digital Empire -->
-      <a href="https://ceeddy.github.io/websitesdevced/#" target="_blank" rel="noopener" class="card reveal">
-        <img src="./assets/img/My solutions.png" alt="Digital Empire Website" />
-        <div class="card-body">
-          <span class="tag">Agency</span>
-          <h3>Digital Empire</h3>
-          <p>Website solutions agency site with modern animations & layout.</p>
-          <ul class="tech"><li>HTML</li><li>CSS</li><li>JS</li><li>Figma</li><li>GSAP</li></ul>
-        </div>
-      </a>
-
-      <!-- Otoo Car Rentals -->
-      <a href="https://ceeddy.github.io/OtooCar-rentals.com/index.html" target="_blank" rel="noopener noreferrer" class="card reveal">
-        <img src="./assets/img/Otoo.png" alt="Otoo Car Rentals Hero Page" />
-        <div class="card-body">
-          <span class="tag">Web</span>
-          <h3>Otoo Car Rentals</h3>
-          <p>Hero landing page for a modern car rental platform with sleek UI.</p>
-          <ul class="tech"><li>HTML</li><li>CSS</li><li>JS</li><li>Figma</li><li>Git</li></ul>
-        </div>
-      </a>
-
-            <!-- Nextlevel Properties -->
-      <a href="https://www.nextlevelproperties.co.ke/" target="_blank" rel="noopener" class="card reveal">
-        <img src="./assets/img/NLP.png" alt="Nextlevel Properties Website" />
-        <div class="card-body">
-          <span class="tag">Real Estate</span>
-          <h3>Nextlevel Properties</h3>
-          <p>Corporate real estate website with property listings and elegant UI.</p>
-          <ul class="tech"><li>HTML</li><li>CSS</li><li>JS</li><li>Git</li><li>Node.js</li></ul>
-        </div>
-      </a>
-
- 
-      <!-- Fitness Gym -->
-      <a href="https://ceeddy.github.io/Gym-website-/#top" target="_blank" rel="noopener" class="card reveal">
-        <img src="./assets/img/Fitness.png" alt="Fitness Gym Website" />
-        <div class="card-body">
-          <span class="tag">Fitness</span>
-          <h3>Fitness Gym</h3>
-          <p>Modern fitness website with responsive design and interactive features.</p>
-          <ul class="tech"><li>HTML</li><li>CSS</li><li>JS</li><li>Git</li><li>GSAP</li></ul>
-        </div>
-      </a>
-
-
-      <!-- Nextlevel Fitness -->
-      <a href="https://www.nextlevelfitness.co.ke/" target="_blank" rel="noopener" class="card reveal">
-        <img src="./assets/img/NLF.png" alt="Nextlevel Fitness Website" />
-        <div class="card-body">
-          <span class="tag">Fitness</span>
-          <h3>Nextlevel Fitness</h3>
-          <p>High-end gym website with premium branding and user-friendly design.</p>
-          <ul class="tech"><li>HTML</li><li>CSS</li><li>JS</li><li>Figma</li><li>GSAP</li></ul>
-        </div>
-      </a>
-      <!-- Riara School -->
-      <a href="https://ceeddy.github.io/Riara-school-website/Home.html" target="_blank" rel="noopener" class="card reveal">
-        <img src="./assets/img/Riara.png" alt="Riara School Website" />
-        <div class="card-body">
-          <span class="tag">Education</span>
-          <h3>Riara School</h3>
-          <p>Modern school website with a focus on student engagement and resources.</p>
-          <ul class="tech"><li>HTML</li><li>CSS</li></ul>
-        </div>
-      </a>
-                  <!-- Antique Vault WiFi Redirect -->
-          <a href="https://ceeddy.github.io/html-wifi-web-page/" target="_blank" rel="noopener" class="card reveal">
-            <img src="./assets/img/AV2.png" alt="Antique Vault WiFi Redirect Page" />
-            <div class="card-body">
-              <span class="tag">Print & Design</span>
-              <h3>Antique Vault WiFi Access</h3>
-              <p>Pre-WiFi landing page with email capture and terms checkbox.</p>
-              <ul class="tech"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
-            </div>
-          </a>
-    </div>
-
-    <div class="more-work reveal">
-      <p class="muted">Want to see more?</p>
-      <div class="chip-row">
-        <a class="chip" href="#marketing">View Marketing Work</a>
-        <a class="chip" href="#photography">See Photography</a>
+      <div class="hc-msgs">
+        <div class="hc-msg b"><div class="hc-av">AI</div><div class="hc-bub">Hi! Welcome to Mama Pima Boutique. How can I help you? 👗</div></div>
+        <div class="hc-msg u"><div class="hc-av">U</div><div class="hc-bub">Do you have dresses in size 12?</div></div>
+        <div class="hc-msg b"><div class="hc-av">AI</div><div class="hc-bub">Yes! 14 dresses from KSh 1,800 — want to see the latest? 🛍️</div></div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- TICKER -->
+<div class="ticker-section">
+  <div class="ticker-track">
+    <div class="tick-item">AI Chatbots<span class="tick-dot">·</span></div>
+    <div class="tick-item">Workflow Automation<span class="tick-dot">·</span></div>
+    <div class="tick-item">WhatsApp Integration<span class="tick-dot">·</span></div>
+    <div class="tick-item">24/7 Support<span class="tick-dot">·</span></div>
+    <div class="tick-item">Smart Lead Gen<span class="tick-dot">·</span></div>
+    <div class="tick-item">AI Strategy<span class="tick-dot">·</span></div>
+    <div class="tick-item">Content Automation<span class="tick-dot">·</span></div>
+    <div class="tick-item">Data Insights<span class="tick-dot">·</span></div>
+    <div class="tick-item">AI Chatbots<span class="tick-dot">·</span></div>
+    <div class="tick-item">Workflow Automation<span class="tick-dot">·</span></div>
+    <div class="tick-item">WhatsApp Integration<span class="tick-dot">·</span></div>
+    <div class="tick-item">24/7 Support<span class="tick-dot">·</span></div>
+    <div class="tick-item">Smart Lead Gen<span class="tick-dot">·</span></div>
+    <div class="tick-item">AI Strategy<span class="tick-dot">·</span></div>
+    <div class="tick-item">Content Automation<span class="tick-dot">·</span></div>
+    <div class="tick-item">Data Insights<span class="tick-dot">·</span></div>
+  </div>
+</div>
 
-  <!-- Marketing -->
-  <section class="section" id="marketing" aria-labelledby="marketing-title">
-    <div class="container">
-      <div class="section-head">
-        <h2 id="marketing-title">Marketing Campaigns & Posters</h2>
-        <p class="muted">Strategic creative that moves the needle.</p>
+<!-- SERVICES -->
+<section id="services">
+  <div class="sv-wrap">
+    <div class="sv-left">
+      <div class="section-label reveal">What We Do</div>
+      <div class="section-title reveal" style="transition-delay:0.1s;margin-top:0.8rem;font-size:clamp(2.2rem,3.5vw,3.2rem);">AI-Driven<br>Services</div>
+      <p class="section-sub reveal" style="transition-delay:0.2s;max-width:300px;">Powerful solutions that free up your time and keep your business growing — even while you sleep.</p>
+      <img class="sv-img reveal" style="transition-delay:0.3s;" src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&q=80&fit=crop" alt="WhatsApp business automation"/>
+    </div>
+    <div class="sv-right">
+      <div class="sv-item reveal"><div class="sv-ico">🤖</div><div><div class="sv-title">AI-Powered Chatbots</div><div class="sv-desc">Custom chatbots trained on your business data. They answer questions, handle bookings, and support your customers 24/7.</div></div></div>
+      <div class="sv-item reveal" style="transition-delay:0.1s;"><div class="sv-ico">⚡</div><div><div class="sv-title">Workflow Automation</div><div class="sv-desc">Automate repetitive tasks across your business. From lead follow-ups to content scheduling — systems that work while you sleep.</div></div></div>
+      <div class="sv-item reveal" style="transition-delay:0.2s;"><div class="sv-ico">📱</div><div><div class="sv-title">WhatsApp & Social Integration</div><div class="sv-desc">Connect your AI to WhatsApp, Instagram, and Facebook. Meet your customers exactly where they already are.</div></div></div>
+      <div class="sv-item reveal" style="transition-delay:0.3s;"><div class="sv-ico">🧠</div><div><div class="sv-title">AI Strategy Consulting</div><div class="sv-desc">Not sure where to start? We assess your business and build a clear AI roadmap tailored for real results.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT / IMAGE SECTION -->
+<section id="about">
+  <div class="about-img-wrap">
+    <img class="about-img" src="https://images.unsplash.com/photo-1556761175-4b46a572b786?w=900&q=85&fit=crop&crop=focalpoint" alt="African business team working"/>
+    <div class="about-img-overlay"></div>
+  </div>
+  <div class="about-content">
+    <div class="section-label reveal">Why Zana AI</div>
+    <div class="section-title reveal" style="transition-delay:0.1s;margin-top:0.8rem;">Built for<br>African Business</div>
+    <p class="reveal" style="transition-delay:0.2s;margin-top:1.2rem;">We understand the Kenyan and East African market. Most AI agencies target the West — we're here, we speak the language, and we build solutions that work for your customers.</p>
+    <p class="reveal" style="transition-delay:0.25s;">From restaurants in Westlands to logistics companies in Industrial Area — we've built AI that understands your business, your customers, and your market.</p>
+    <div class="about-tags reveal" style="transition-delay:0.3s;">
+      <span class="about-tag">Nairobi Based</span>
+      <span class="about-tag">M-Pesa Ready</span>
+      <span class="about-tag">Swahili Support</span>
+      <span class="about-tag">Fast Delivery</span>
+      <span class="about-tag">Local Support</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="how">
+  <div class="how-inner">
+    <div class="how-hd reveal">
+      <div class="section-label" style="justify-content:center;">The Process</div>
+      <div class="section-title" style="margin-top:0.8rem;text-align:center;">Simple &amp; Scalable</div>
+    </div>
+    <div class="step-row">
+      <div class="step-vis">
+        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=700&q=80&fit=crop" alt="Discovery call"/>
+        <div class="step-vis-overlay"><div class="step-num-ghost">01</div><div class="step-ico">📞</div></div>
       </div>
-
-      <div class="kpi-grid reveal">
-        <div class="kpi"><div class="kpi-num">500%</div><div class="kpi-label">Avg ROI uplift</div></div>
-        <div class="kpi"><div class="kpi-num">2M+</div><div class="kpi-label">People reached</div></div>
-        <div class="kpi"><div class="kpi-num">35%</div><div class="kpi-label">Conversion lift</div></div>
-        <div class="kpi"><div class="kpi-num">50+</div><div class="kpi-label">Campaigns shipped</div></div>
-      </div>
-
-      <div class="case-grid">
-        <article class="case reveal">
-          <img src="./assets/img/campaign-1.jpg" alt="Campaign case 1" />
-          <div class="case-body">
-            <h3>AntiqueVault Awareness Push</h3>
-            <p>Scaled awareness 3× via paid + organic with a systemized creative kit.</p>
-            <ul class="bullets"><li>300% brand awareness</li><li>50K+ engagements</li><li>25% CVR</li></ul>
-          </div>
-        </article>
-        <article class="case reveal">
-          <img src="./assets/img/campaign-2.svg.png" alt="Campaign case 2" />
-          <div class="case-body">
-            <h3>Fintech Product Launch</h3>
-            <p>Orchestrated multi‑channel launch to 10K downloads in week one.</p>
-            <ul class="bullets"><li>10K downloads</li><li>40% week‑9 retention</li><li>4.8★ rating</li></ul>
-          </div>
-        </article>
-        <article class="case reveal">
-          <img src="./assets/img/campaign-3.png" alt="Campaign case 3" />
-          <div class="case-body">
-            <h3>MAA Fashion Identity</h3>
-            <p>Defined brand system, voice, and visuals for a mission‑driven startup.</p>
-            <ul class="bullets"><li>200% sales growth</li><li>+15K followers</li><li>85% recognition</li></ul>
-          </div>
-        </article>
-      </div>
-      <div class="case-grid">
-        <article class="case reveal">
-            <img src="./assets/img/campaign 5.jpg" alt="NextLevel Properties case" />
-            <div class="case-body">
-              <h3>NextLevel Properties Rebrand</h3>
-              <p>Revamped identity and digital funnel to attract high-value buyers and renters.</p>
-              <ul class="bullets">
-                <li>4× lead conversion rate</li>
-                <li>+120K impressions via geo-targeted ads</li>
-                <li>New brand system + landing page suite</li>
-              </ul>
-            </div>
-          </article>
-                  <article class="case reveal">
-            <img src="./assets/img/campaign 4.jpg" alt="Mavericks Restaurant case" />
-            <div class="case-body">
-              <h3>Mavericks Flavor Launch</h3>
-              <p>Ignited buzz with themed activations, influencer drops, and a craveable content loop.</p>
-              <ul class="bullets">
-                <li>3 sold-out launch weekends</li>
-                <li>+75K organic reach</li>
-                <li>20% uplift in weekday foot traffic</li>
-              </ul>
-            </div>
-          </article>
-                <article class="case reveal">
-            <img src="./assets/img/campaign 6.jpg" alt="Zuri Cuts Butchery case" />
-            <div class="case-body">
-              <h3>Zuri Cuts Premium Push</h3>
-              <p>Positioned Zuri Cuts as Nairobi’s go-to for premium meats with a loyalty-first campaign.</p>
-              <ul class="bullets">
-                <li>+60% repeat customer rate</li>
-                <li>Branded packaging + signage rollout</li>
-                <li>15K+ loyalty program signups</li>
-              </ul>
-            </div>
-          </article>
-      </div>
-              <h3 class="subhead reveal">Poster Archive</h3>
-                          
-                         <div class="pin-grid">
-                <img src="./assets/img/poster-1.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/poster-2.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/poster-3.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/poster-4.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P5.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P6.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P7.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P9.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P8.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P10.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P11.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P12.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P13.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P14.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P15.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P16.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P17.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P18.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P19.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P20.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P21.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P22.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P23.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P24.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P25.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P26.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P27.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P28.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P29.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P30.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P31.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P32.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P33.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P34.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P35.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P36.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P37.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P38.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P39.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P40.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P41.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P42.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/P43.jpg" alt="Poster" loading="lazy">
-                           <img src="./assets/img/E1.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/E2.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/E3.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/E4.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/E5.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/E6.jpg" alt="Poster" loading="lazy">
-                <img src="./assets/img/E7.jpg" alt="Poster" loading="lazy"> 
-                <!-- keep going -->
-                <img src="./assets/img/poster-40.jpg" alt="Poster" loading="lazy">
-              </div>
-
-
-      <div class="cta-banner reveal">
-        <div class="cta-copy">
-          <h3>Need a campaign that delivers?</h3>
-          <p>i pair sharp creative with smart distribution.</p>
-        </div>
-        <a class="btn" href="#contact">Start your campaign</a>
+      <div class="step-body reveal-r">
+        <div class="step-tag">Step 01</div>
+        <div class="section-title">Discovery Call</div>
+        <p>We understand your business — your goals, your customers, and where AI can make the biggest impact. No jargon, just a real conversation about what matters to you.</p>
       </div>
     </div>
-  </section>
-
-  <!-- Photography -->
-  <section class="section" id="photography" aria-labelledby="photo-title">
-    <div class="container">
-      <div class="section-head">
-        <h2 id="photo-title">Photography Portfolio</h2>
-        <p class="muted">Moments that train the design eye.</p>
+    <div class="step-row">
+      <div class="step-vis">
+        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=700&q=80&fit=crop" alt="Building AI"/>
+        <div class="step-vis-overlay"><div class="step-num-ghost">02</div><div class="step-ico">⚙️</div></div>
       </div>
-
-      <div class="stats-grid reveal">
-        <div class="stat"><div class="stat-num">1,000+</div><div class="stat-label">Photos</div></div>
-        <div class="stat"><div class="stat-num">25k+</div><div class="stat-label">Views</div></div>
-        <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Clients</div></div>
-        <div class="stat"><div class="stat-num">1</div><div class="stat-label">Awards</div></div>
-      </div>
-
-      <div class="gallery">
-        <img src="./assets/img/photo-1.png" alt="food" class="reveal"/>
-        <img src="./assets/img/photo-2.png" alt="CEO" class="reveal"/>
-        <img src="./assets/img/photo-3.png" alt="barista" class="reveal"/>
-        <img src="./assets/img/photo-4.png" alt="Land owner" class="reveal"/>
-        <img src="./assets/img/photo-5.png" alt="property consultant" class="reveal"/>
-        <img src="./assets/img/photo-6.png" alt="barber vibes" class="reveal"/>
-        <img src="./assets/img/photo-7.png" alt="lover wins" class="reveal"/>
-        <img src="./assets/img/photo-8.png" alt="Finishing is must" class="reveal"/>
-      </div>
-
-      <div class="two-col">
-        <div class="reveal">
-          <h3>Philosophy</h3>
-          <p>Photography is about freezing small truths—light, timing, perspective. The practice shapes how I design: focus on what matters, remove what doesn't.</p>
-        </div>
-        <div class="reveal">
-          <h3>Gear</h3>
-          <ul class="gear">
-            <li>Canon EOS R‑series · Sony α7R‑series</li>
-            <li>24‑70mm f/2.8 · 70‑200mm f/4 · 16‑35mm f/4</li>
-            <li>Carbon fiber tripod · ND filters · Remote trigger</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="cta-banner reveal">
-        <div class="cta-copy">
-          <h3>Need professional photos?</h3>
-          <p>I'm available for select shoots: brand, product, and events.</p>
-        </div>
-        <a class="btn" href="#contact">Book a session</a>
+      <div class="step-body reveal-l">
+        <div class="step-tag">Step 02</div>
+        <div class="section-title">Build &amp; Train</div>
+        <p>We build your custom AI and train it on your data — your tone, your answers, your brand voice. Ready in as little as 48 hours from start to finish.</p>
       </div>
     </div>
-  </section>
-
-  <!-- Contact -->
-  <section class="section" id="contact" aria-labelledby="contact-title">
-    <div class="container two-col">
-      <div class="reveal">
-        <h2 id="contact-title">Get in Touch</h2>
-        <p>Ready to bring ideas to life? Tell me about your project and goals.</p>
-        <ul class="contact-list">
-          <li><strong>Email:</strong> <a href="mailto:ceeddy492@gmail.com">ceeddy492@gmail.com</a></li>
-          <li><strong>Phone:</strong> <a href="tel:+254112129347">+254 112 129 347</a></li>
-          <li><strong>Location:</strong> Kenya, Nairobi</li>
-          <li><strong>Availability:</strong> Open to new projects · replies within 24h</li>
-        </ul>
+    <div class="step-row">
+      <div class="step-vis">
+        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=700&q=80&fit=crop" alt="Launch and support"/>
+        <div class="step-vis-overlay"><div class="step-num-ghost">03</div><div class="step-ico">🚀</div></div>
       </div>
-      <form class="contact-form reveal" id="contact-form" novalidate>
-        <label for="name">Your Name</label>
-        <input id="name" name="name" type="text">
-
-        <label for="email">Email Address</label>
-        <input id="email" name="email" type="email">
-
-        <label for="details">Project Details</label>
-        <textarea id="details" name="details" rows="5" placeholder="What are we building?" required></textarea>
-
-        <button class="btn" type="submit">Send Message</button>
-        <p class="form-msg" role="status" aria-live="polite"></p>
-      </form>
+      <div class="step-body reveal-r">
+        <div class="step-tag">Step 03</div>
+        <div class="section-title">Launch &amp; Support</div>
+        <p>We deploy your solution and stay with you. Ongoing support, updates, and optimization — we're your AI partner long after launch day.</p>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <footer class="footer">
-  <div class="footer-nav">
-    <a href="#about">About</a>
-    <a href="#experience">Work</a>
-    <a href="#projects">Projects</a>
-    <a href="#marketing">Marketing</a>
-    <a href="#photography">Photography</a>
+<!-- COMPARE -->
+<section id="compare">
+  <div class="cmp-hd reveal">
+    <div class="section-label">Why Zana AI</div>
+    <div class="section-title" style="color:white;margin-top:0.8rem;">Zana AI vs The Rest</div>
+  </div>
+  <div class="cmp-grid">
+    <div class="cmp-col us reveal-l">
+      <div class="cmp-name">Zana AI</div><div class="cmp-badge">✦ Us</div>
+      <div class="cmp-row"><span class="ck">✓</span>Custom-trained AI on your data</div>
+      <div class="cmp-row"><span class="ck">✓</span>Automated workflows built for you</div>
+      <div class="cmp-row"><span class="ck">✓</span>WhatsApp & social integration</div>
+      <div class="cmp-row"><span class="ck">✓</span>Ongoing support & optimization</div>
+      <div class="cmp-row"><span class="ck">✓</span>Speaks your brand's voice</div>
+      <div class="cmp-row"><span class="ck">✓</span>Results in days, not months</div>
+    </div>
+    <div class="cmp-col them reveal-r">
+      <div class="cmp-name">Others</div><div class="cmp-badge">Generic</div>
+      <div class="cmp-row"><span class="ck">✕</span>Generic one-size-fits-all bots</div>
+      <div class="cmp-row"><span class="ck">✕</span>Manual workflows and guesswork</div>
+      <div class="cmp-row"><span class="ck">✕</span>Limited platform support</div>
+      <div class="cmp-row"><span class="ck">✕</span>No ongoing help after setup</div>
+      <div class="cmp-row"><span class="ck">✕</span>Robotic, off-brand responses</div>
+      <div class="cmp-row"><span class="ck">✕</span>Slow, complex onboarding</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="pr-hd reveal">
+    <div class="section-label" style="justify-content:center;">Pricing</div>
+    <div class="section-title" style="margin-top:0.8rem;text-align:center;">Simple Pricing</div>
+    <p class="section-sub" style="text-align:center;max-width:400px;margin:1rem auto 0;">Flexible plans that fit your budget and scale with your growth.</p>
+  </div>
+  <div class="ptog">
+    <span class="tl on" id="ml">Monthly</span>
+    <div class="tog" id="tog" onclick="tp()"><div class="tk"></div></div>
+    <span class="tl" id="yl">Yearly</span>
+    <span class="save-badge">Save 30%</span>
+  </div>
+  <div class="plans">
+    <div class="plan">
+      <div class="plan-nm">Starter</div>
+      <div class="plan-pr"><span class="cur">KSh </span><span id="a1">4,999</span><span class="per">/mo</span></div>
+      <div class="plan-desc">Perfect for small businesses ready to explore AI automation.</div>
+      <ul class="plan-feats"><li>1 AI Chatbot</li><li>500 messages/month</li><li>Website embed</li><li>Basic customization</li><li>Email support</li><li class="no">WhatsApp integration</li><li class="no">Analytics report</li></ul>
+      <button class="plan-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get Started</button>
+    </div>
+    <div class="plan feat">
+      <div class="plan-badge">⭐ Most Popular</div>
+      <div class="plan-nm">Growth</div>
+      <div class="plan-pr"><span class="cur">KSh </span><span id="a2">9,999</span><span class="per">/mo</span></div>
+      <div class="plan-desc">For growing businesses that want a real competitive edge.</div>
+      <ul class="plan-feats"><li>1 AI Chatbot</li><li>2,000 messages/month</li><li>Website embed</li><li>Full customization</li><li>Priority support</li><li>WhatsApp integration</li><li>Monthly analytics report</li></ul>
+      <button class="plan-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get Started</button>
+    </div>
+    <div class="plan">
+      <div class="plan-nm">Enterprise</div>
+      <div class="plan-pr">Custom</div>
+      <div class="plan-desc">Fully tailored AI solutions for larger organizations.</div>
+      <ul class="plan-feats"><li>Multiple chatbots</li><li>Unlimited messages</li><li>All integrations</li><li>Custom AI training</li><li>Dedicated support</li><li>WhatsApp integration</li><li>Full analytics dashboard</li></ul>
+      <button class="plan-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact Us</button>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="tm-hd">
+    <div class="section-label reveal">Clients</div>
+    <div class="section-title reveal" style="margin-top:0.8rem;transition-delay:0.1s;">What Our<br>Clients Say</div>
+  </div>
+  <div class="tm-grid">
+    <div class="testi"><div class="tm-stars">★★★★★</div><div class="tm-quote">Since launching our Zana AI chatbot, our response time dropped to zero. Customers get answers instantly — even at 2am. Total game changer for our business.</div><div class="tm-author"><div class="tm-av">AK</div><div><div class="tm-name">Amina K.</div><div class="tm-role">Owner, Nairobi Boutique</div></div></div></div>
+    <div class="testi"><div class="tm-stars">★★★★★</div><div class="tm-quote">The automation workflows Zana AI built saved our team 20+ hours a week. I had no idea how much time we were wasting on tasks that could be automated.</div><div class="tm-author"><div class="tm-av">JM</div><div><div class="tm-name">James M.</div><div class="tm-role">CEO, Logistics Startup</div></div></div></div>
+    <div class="testi"><div class="tm-stars">★★★★★</div><div class="tm-quote">The chatbot knows our menu, prices, and delivery areas. It's like having an extra employee who never sleeps and never makes mistakes. Worth every shilling.</div><div class="tm-author"><div class="tm-av">FO</div><div><div class="tm-name">Fatuma O.</div><div class="tm-role">Manager, Restaurant Chain</div></div></div></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="faq-wrap">
+    <div class="faq-intro">
+      <div class="section-label reveal">FAQ</div>
+      <div class="section-title reveal" style="transition-delay:0.1s;margin-top:0.8rem;">Questions?<br>Answered.</div>
+      <p class="reveal" style="transition-delay:0.2s;margin-top:1.2rem;color:var(--muted);font-size:1rem;line-height:1.8;">Everything you need to know before getting started with Zana AI.</p>
+    </div>
+    <div class="faq-items reveal" style="transition-delay:0.1s;">
+      <div class="faq-i"><div class="faq-q" onclick="tf(this)">What exactly does Zana AI build?<div class="faq-ico">+</div></div><div class="faq-a">We build custom AI chatbots and automation workflows tailored to your business — chatbots for your website or WhatsApp, automated lead follow-ups, content scheduling, and more.</div></div>
+      <div class="faq-i"><div class="faq-q" onclick="tf(this)">Do I need any technical knowledge?<div class="faq-ico">+</div></div><div class="faq-a">Not at all. We handle everything from setup to deployment. You just tell us about your business and we take care of the rest — no coding required.</div></div>
+      <div class="faq-i"><div class="faq-q" onclick="tf(this)">How long does it take to go live?<div class="faq-ico">+</div></div><div class="faq-a">Most projects go live within 3–7 days. Simple chatbots can be ready in as little as 48 hours. Enterprise solutions may take 2–3 weeks.</div></div>
+      <div class="faq-i"><div class="faq-q" onclick="tf(this)">Is my business data safe?<div class="faq-ico">+</div></div><div class="faq-a">Absolutely. Your data is used only to train your chatbot and is never shared with third parties. We can sign an NDA before any work begins.</div></div>
+      <div class="faq-i"><div class="faq-q" onclick="tf(this)">What if I want changes after launch?<div class="faq-ico">+</div></div><div class="faq-a">All plans include ongoing support. We update your chatbot whenever your business information changes and optimize performance over time.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="ct-grid">
+    <div class="ct-left">
+      <div class="section-label reveal">Get In Touch</div>
+      <div class="section-title reveal" style="transition-delay:0.1s;color:white;margin-top:0.8rem;">Ready to Put<br>AI to Work?</div>
+      <p class="reveal" style="transition-delay:0.2s;">Tell us about your business and we'll build a solution tailored for you. No technical knowledge needed — we handle everything from start to finish.</p>
+      <a href="https://calendly.com/antiquevaultke/30min" target="_blank" class="book-btn reveal" style="transition-delay:0.3s;">📅 Book a Free Demo Call</a>
+      <div class="ct-info reveal" style="transition-delay:0.4s;">
+        <div class="ct-row"><div class="ct-ico">📧</div><div><div class="ct-lbl">Email</div><div class="ct-val">ceeddy492@gmail.com</div></div></div>
+        <div class="ct-row"><div class="ct-ico">📱</div><div><div class="ct-lbl">Phone / WhatsApp</div><div class="ct-val">+254 799 278 741</div></div></div>
+        <div class="ct-row"><div class="ct-ico">📍</div><div><div class="ct-lbl">Location</div><div class="ct-val">Nairobi, Kenya</div></div></div>
+      </div>
+    </div>
+    <form class="ct-form reveal" style="transition-delay:0.2s;" action="https://formspree.io/f/mgolbzgj" method="POST" onsubmit="handleForm(event)">
+      <div class="ct-row2">
+        <div class="ct-fg"><label class="ct-flbl">Your Name</label><input class="ct-inp" type="text" name="name" required/></div>
+        <div class="ct-fg"><label class="ct-flbl">Business Name</label><input class="ct-inp" type="text" name="business" required/></div>
+      </div>
+      <div class="ct-fg"><label class="ct-flbl">Email Address</label><input class="ct-inp" type="email" name="email" required/></div>
+      <div class="ct-fg"><label class="ct-flbl">Which plan interests you?</label>
+        <select class="ct-sel" name="plan">
+          <option>Starter — KSh 4,999/mo</option>
+          <option selected>Growth — KSh 9,999/mo</option>
+          <option>Enterprise — Custom</option>
+        </select>
+      </div>
+      <div class="ct-fg"><label class="ct-flbl">Tell us about your business</label><textarea class="ct-ta" name="message"></textarea></div>
+      <button type="submit" class="ct-sub">Send Message →</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-logo">
+    <div class="logo-icon" style="width:28px;height:28px;border-radius:7px;"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+    <span class="logo-text" style="font-size:1.1rem;">Zana AI</span>
+  </div>
+  <div class="ft-links">
+    <a href="#services">Services</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
     <a href="#contact">Contact</a>
   </div>
-
-  <div class="footer-social">
-    <a href="https://github.com/Ceeddy" aria-label="Visit our GitHub profile"><i class="fab fa-github"></i></a>
-  </div>
-
-  <p class="footer-copy">&copy; 2025 coded by cedInc.</p>
+  <p>© 2026 Zana AI · Nairobi, Kenya · Your Business. Always Working.</p>
 </footer>
 
-  <!-- Modal -->
-  <dialog class="modal" id="project-modal" aria-label="Project details">
-    <button class="modal-close" aria-label="Close">×</button>
-    <div class="modal-content">
-      <img id="modal-img" alt="" />
-      <div class="modal-text">
-        <h3 id="modal-title"></h3>
-        <p id="modal-desc"></p>
-        <ul id="modal-tech" class="tech"></ul>
-      </div>
-    </div>
-  </dialog>
-  <!-- WhatsApp Floating Button -->
-      <a href="https://wa.me/+254112129347" 
-      rel="noopener"
-      class="whatsapp-float" 
-      target="_blank" 
-      aria-label="Chat on WhatsApp">
-      <img src="./assets/img/app icon.png" alt="WhatsApp" />
-    </a>
-
-
-  <script>
-    // update footer year without waiting for scripts.js
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
-  <script>
-  window.addEventListener("load", () => {
-    const preloader = document.getElementById("preloader");
-    preloader.classList.add("fade-out");
-  });
-</script>
+<!-- CHAT WIDGET -->
+<div id="wo" onclick="closeWidget()"></div>
+<div id="ww">
+  <div id="wh">
+    <div class="wav"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+    <div class="whi"><div class="whn">Zana AI</div><div class="whs"><div class="whd"></div><div class="wht">Online · Replies instantly</div></div></div>
+    <button class="wcl" onclick="closeWidget()">✕</button>
+  </div>
+  <div id="wm"></div>
+  <div id="wqr"></div>
+  <div id="wia">
+    <textarea id="wi" rows="1" onkeydown="wKey(event)" oninput="wRes(this)"></textarea>
+    <button id="wsb" onclick="wSend()"><svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg></button>
+  </div>
+  <div class="wpow">Powered by <a href="#" target="_blank">Zana AI</a></div>
+</div>
+<button id="wtr" onclick="toggleWidget()">
+  <div class="wtp"></div>
+  <svg id="wic" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+  <svg id="wix" viewBox="0 0 24 24" style="display:none"><path d="M18 6L6 18M6 6l12 12" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg>
+</button>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const counters = document.querySelectorAll(".kpi-num");
-  const speed = 100; // smaller = faster
+// Scroll reveals
+const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.1});
+document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>ro.observe(el));
 
-  const animate = (counter) => {
-    const target = counter.getAttribute("data-target");
-    const isPercent = target.includes("%");
-    const isPlus = target.includes("+");
-    const isM = target.includes("M");
-
-    let cleanTarget = parseFloat(target.replace(/[^0-9.]/g, ""));
-    let count = 0;
-    const step = cleanTarget / speed;
-
-    const update = () => {
-      count += step;
-      if (count < cleanTarget) {
-        counter.innerText =
-          (isM ? (count / 1e6).toFixed(1) + "M" :
-          isPercent ? Math.floor(count) + "%" :
-          isPlus ? Math.floor(count) + "+" :
-          Math.floor(count));
-        requestAnimationFrame(update);
-      } else {
-        counter.innerText = target; // final value
-      }
-    };
-
-    update();
-  };
-
-  // observer to trigger animation when visible
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const counter = entry.target;
-        animate(counter);
-        observer.unobserve(counter); // run once
-      }
-    });
-  }, { threshold: 0.5 });
-
-  counters.forEach(counter => {
-    counter.setAttribute("data-target", counter.innerText);
-    observer.observe(counter);
-  });
+// Plan & testi animations
+const po=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.style.opacity='1';x.target.style.transform='translateY(0)';}}),{threshold:0.08});
+document.querySelectorAll('.plan,.testi').forEach((el,i)=>{
+  el.style.transition=`opacity 0.6s ${i*0.1}s ease,transform 0.6s ${i*0.1}s ease,box-shadow 0.3s,border-color 0.3s`;
+  po.observe(el);
 });
+
+// Nav scroll
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>50));
+
+// Mobile menu
+function toggleMenu(){document.getElementById('mobmenu').classList.toggle('open');}
+function closeMenu(){document.getElementById('mobmenu').classList.remove('open');}
+
+// Pricing toggle
+let yr=false;
+const pr={a1:['4,999','3,499'],a2:['9,999','6,999']};
+function tp(){
+  yr=!yr;
+  document.getElementById('tog').classList.toggle('on',yr);
+  document.getElementById('ml').classList.toggle('on',!yr);
+  document.getElementById('yl').classList.toggle('on',yr);
+  Object.entries(pr).forEach(([id,v])=>{const el=document.getElementById(id);if(el)el.textContent=yr?v[1]:v[0];});
+}
+
+// FAQ
+function tf(el){
+  const item=el.parentElement,open=item.classList.contains('open');
+  document.querySelectorAll('.faq-i').forEach(i=>i.classList.remove('open'));
+  if(!open)item.classList.add('open');
+}
+
+// Contact form
+async function handleForm(e){
+  e.preventDefault();
+  const b=e.target.querySelector('.ct-sub');
+  b.textContent='Sending...';b.disabled=true;
+  try{
+    const res=await fetch('https://formspree.io/f/mgolbzgj',{method:'POST',body:new FormData(e.target),headers:{Accept:'application/json'}});
+    if(res.ok){
+      b.textContent='✓ Message Sent!';b.style.background='linear-gradient(135deg,#22c55e,#16a34a)';
+      e.target.reset();
+      setTimeout(()=>{b.textContent='Send Message →';b.style.background='';b.disabled=false;},4000);
+    }else{
+      b.textContent='Failed — Try Again';b.style.background='linear-gradient(135deg,#ef4444,#dc2626)';
+      setTimeout(()=>{b.textContent='Send Message →';b.style.background='';b.disabled=false;},3000);
+    }
+  }catch{
+    b.textContent='Failed — Try Again';b.style.background='linear-gradient(135deg,#ef4444,#dc2626)';
+    setTimeout(()=>{b.textContent='Send Message →';b.style.background='';b.disabled=false;},3000);
+  }
+}
+
+// Chat widget
+let wO=false,wT=false,wH=[],wQ=false;
+const wCfg={
+  welcome:"Hey there! 👋 I'm Zana AI. I'm here to answer your questions and help you get started. What can I help you with today?",
+  qr:["What services do you offer?","How much does it cost?","How do I get started?","Contact the team"],
+  sys:`You are Zana AI, a friendly and knowledgeable assistant for Zana AI — an AI automation agency based in Nairobi, Kenya. Help visitors understand what Zana AI does and guide them toward booking a consultation. About Zana AI: We build custom AI chatbots trained on client business data, workflow automation using n8n and Groq AI, WhatsApp and social media integration, AI strategy consulting. We are based in Nairobi Kenya and understand the local market. Pricing: Starter KSh 4,999/mo, Growth KSh 9,999/mo, Enterprise custom pricing. Contact: ceeddy492@gmail.com | +254 799 278 741. Tagline: Your Business. Always Working. Be warm, confident, and concise. Keep replies to 2-3 sentences max. Always end with a question or clear next step to keep the conversation going.`
+};
+document.addEventListener('DOMContentLoaded',()=>{setTimeout(()=>{wAdd('bot',wCfg.welcome);setTimeout(wQR,600);},900);});
+function wQR(){
+  if(wQ)return;wQ=true;
+  const el=document.getElementById('wqr');el.innerHTML='';
+  wCfg.qr.forEach(q=>{const b=document.createElement('button');b.className='wqb';b.textContent=q;b.onclick=()=>{el.innerHTML='';wSend(q);};el.appendChild(b);});
+}
+function toggleWidget(){wO?closeWidget():openWidget();}
+function openWidget(){
+  wO=true;
+  document.getElementById('ww').classList.add('open');
+  document.getElementById('wo').classList.add('open');
+  document.getElementById('wtr').classList.add('open');
+  document.getElementById('wic').style.display='none';
+  document.getElementById('wix').style.display='block';
+  setTimeout(()=>document.getElementById('wi').focus(),400);
+}
+function closeWidget(){
+  wO=false;
+  ['ww','wo','wtr'].forEach(id=>document.getElementById(id).classList.remove('open'));
+  document.getElementById('wic').style.display='block';
+  document.getElementById('wix').style.display='none';
+}
+function wAdd(role,text){
+  const msgs=document.getElementById('wm');
+  const w=document.createElement('div');w.className=`wmsg ${role}`;
+  const a=document.createElement('div');a.className='wmav';a.textContent=role==='bot'?'AI':'You';
+  const b=document.createElement('div');b.className='wbub';b.textContent=text;
+  w.appendChild(a);w.appendChild(b);msgs.appendChild(w);msgs.scrollTop=msgs.scrollHeight;
+  wH.push({role:role==='bot'?'assistant':'user',content:text});
+}
+function wShowT(){
+  const msgs=document.getElementById('wm');
+  const w=document.createElement('div');w.className='wmsg bot';w.id='wti';
+  const a=document.createElement('div');a.className='wmav';a.textContent='AI';
+  const b=document.createElement('div');b.className='wbub';
+  const d=document.createElement('div');d.className='wtyp';d.innerHTML='<span></span><span></span><span></span>';
+  b.appendChild(d);w.appendChild(a);w.appendChild(b);msgs.appendChild(w);msgs.scrollTop=msgs.scrollHeight;
+}
+function wRmT(){const el=document.getElementById('wti');if(el)el.remove();}
+async function wSend(text){
+  const inp=document.getElementById('wi');
+  const msg=text||inp.value.trim();
+  if(!msg||wT)return;
+  inp.value='';wRes(inp);
+  document.getElementById('wqr').innerHTML='';
+  wAdd('user',msg);wT=true;document.getElementById('wsb').disabled=true;wShowT();
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:1000,system:wCfg.sys,messages:wH.slice(-10)})
+    });
+    const data=await res.json();wRmT();
+    wAdd('bot',data.content&&data.content[0]?data.content[0].text:"Having trouble connecting. Reach us on WhatsApp: +254 799 278 741");
+  }catch{wRmT();wAdd('bot',"Connection issue! Contact us: +254 799 278 741 or ceeddy492@gmail.com");}
+  wT=false;document.getElementById('wsb').disabled=false;document.getElementById('wi').focus();
+}
+function wKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();wSend();}}
+function wRes(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,100)+'px';}
 </script>
 </body>
 </html>
